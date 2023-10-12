@@ -1,59 +1,80 @@
 #include "communications.hpp"
 #include <mpi.h>
+#include <cmath>
+#include <iostream>
 
-/// @brief Sends data from process 0 to all other processes
-/// @param rank 
-/// @param size 
-/// @param data 
-/// @param count 
-/// @param tag1 
-/// @param stat 
-/// @param processor_name 
-void sequential_broadcast(int rank, int size, double *data, int count, int tag1, MPI_Status stat, char processor_name[]) {
+/// @brief Sequentially sends data from process 0 to all other processes
+void sequential_broadcast(int rank, int size, char *processor_name, MPI_Status stat) {
+    int data = rank;  // Initialize data with the rank of the process
+    int received_data;
+    
     if(rank == 0) {
-        for(int i = 1; i < count; i++) {
-            MPI_Send(data, size, MPI_DOUBLE, i, tag1, MPI_COMM_WORLD);
-            std::cout << "Sent from " << processor_name << " to " << i << std::endl;
+        // Root process sends data to all other processes
+        for(int i = 1; i < size; i++) {
+            std::cout << "Rank " << rank << " sending data to rank " << i << std::endl;
+            MPI_Send(&received_data, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
         }
     } else {
-        MPI_Recv(data, size, MPI_DOUBLE, 0, tag1, MPI_COMM_WORLD, &stat);
-        std::cout << rank << " Received at " << processor_name << " from 0" << std::endl;
+        // All other processes receive data from root process
+        MPI_Recv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &stat);
+        std::cout << "Rank " << rank << " received data from rank 0" << std::endl;
     }
 }
 
-/// @brief Sends data from process 0 back to itself like a ring
-/// @param rank 
-/// @param size 
-/// @param data 
-/// @param count 
-/// @param tag1 
-/// @param stat 
-/// @param processor_name 
-void sequential_ring(int rank, int size, double *data, int count, int tag1, MPI_Status stat, char processor_name[]) {
-    // modular arithmetic
-    int next = (rank + 1) % count;
-    int prev = (rank + count - 1) % count;
+/// @brief Sends data in a ring topology starting and ending at process 0
+void sequential_ring(int rank, int size, char *processor_name, MPI_Status stat) {
+    int data = rank;  // Initialize data with the rank of the process
+    int received_data;
+    
+    int next = (rank + 1) % size;  // Calculate the next process in the ring
+    int prev = (rank + size - 1) % size;  // Calculate the previous process in the ring
 
-    // 0 -> 1 -> 2 -> 3 -> ... -> 0
     if(rank == 0) {
-        MPI_Send(data, size, MPI_DOUBLE, next, tag1, MPI_COMM_WORLD);
-        std::cout << "Sent from " << processor_name << " to " << next << std::endl;
+        // Root process starts the ring
+        std::cout << "Rank " << rank << " sending data to rank " << next << std::endl;
+        MPI_Send(&data, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
     } else {
-        MPI_Recv(data, size, MPI_DOUBLE, prev, tag1, MPI_COMM_WORLD, &stat);
-        std::cout << rank << " Received at " << processor_name << " from " << prev << std::endl;
-        MPI_Send(data, size, MPI_DOUBLE, next, tag1, MPI_COMM_WORLD);
-        std::cout << "Sent from " << processor_name << " to " << next << std::endl;
+        // Receive data from the previous process
+        MPI_Recv(&received_data, 1, MPI_INT, prev, 0, MPI_COMM_WORLD, &stat);
+        std::cout << "Rank " << rank << " received data from rank " << prev << std::endl;
+        
+        // Send data to the next process
+        std::cout << "Rank " << rank << " sending data to rank " << next << std::endl;
+        MPI_Send(&data, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
     }
 }
 
-/// @brief 
-/// @param rank 
-/// @param size 
-/// @param data 
-/// @param count 
-/// @param tag1 
-/// @param stat 
-/// @param processor_name 
-void hypercube(int rank, int size, double *data, int count, int tag1, MPI_Status stat, char processor_name[]) {
+/// @brief Executes hypercube communication among the processes
+void hypercube(int rank, int size, char *processor_name, MPI_Status stat) {
+    int dim = std::log2(size);  // Calculate the dimension of the hypercube
+    if (std::pow(2, dim) != size) {
+        if (rank == 0) {
+            std::cerr << "The number of processes must be a power of 2." << std::endl;
+        }
+        MPI_Abort(MPI_COMM_WORLD, 1);  // Abort if number of processes is not a power of 2
+    }
+    int data = rank;  // Initialize data with the rank of the process
 
+    for (int i = 0; i < dim; ++i) {
+        int partner = rank ^ (1 << i);  // Compute partner rank by XOR-ing with 2^i
+        int received_data;
+
+        if (rank < partner) {
+            // Lower-ranked process sends first, then receives
+            std::cout << "Rank " << rank << " sending data to rank " << partner << std::endl;
+            MPI_Send(&data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
+
+            MPI_Recv(&received_data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD, &stat);
+            std::cout << "Rank " << rank << " received data from rank " << partner << std::endl;
+        } else {
+            // Higher-ranked process receives first, then sends
+            MPI_Recv(&received_data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD, &stat);
+            std::cout << "Rank " << rank << " received data from rank " << partner << std::endl;
+
+            std::cout << "Rank " << rank << " sending data to rank " << partner << std::endl;
+            MPI_Send(&data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
+        }
+
+        data += received_data;  // Update the data by adding the received_data
+    }
 }

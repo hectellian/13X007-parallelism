@@ -28,19 +28,13 @@ int main(int argc, char** argv) {
     MPI_Get_processor_name(processor_name, &name_len);
 
     // Communicate between processes using MPI_Send and MPI_Recv
-    // Allocate memory for A on CPU
-    int N = 10;
-    std::vector<double> A_vect(N);
-    double* A = A_vect.data();
-    int tag1 = 10;// can be any unique integer
-
     // Choose communication pattern based on command-line argument
     if (strcmp(argv[1], "hypercube") == 0) {
-        hypercube(rank, N, A, size, tag1, stat, processor_name);
+        hypercube(rank, size, processor_name, stat);
     } else if (strcmp(argv[1], "broadcast") == 0) {
-        sequential_broadcast(rank, N, A, size, tag1, stat, processor_name);
+        sequential_broadcast(rank, size, processor_name, stat);
     } else if (strcmp(argv[1], "ring") == 0) {
-        sequential_ring(rank, N, A, size, tag1, stat, processor_name);
+        sequential_ring(rank, size, processor_name, stat);
     } else {
         if (rank == 0) {
             std::cerr << "Invalid argument. Choose <hypercube|broadcast|ring>" << std::endl;
