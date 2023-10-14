@@ -1,0 +1,85 @@
+%----------------------------------------------------------------------------------------------
+%   PACKAGES AND CONFIGURATIONS 
+%----------------------------------------------------------------------------------------------
+
+\usepackage{lastpage}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{bussproofs}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listing}
+\usepackage{etoolbox}
+\usepackage{latexsym}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\graphicspath{{./img}}
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep}
+
+%-----------------------------------------------------------------------------------------------
+%   MARGINS
+%-----------------------------------------------------------------------------------------------
+
+\usepackage{geometry}
+\geometry{
+    paper=a4paper,
+    top=3cm,
+    bottom=3cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=14pt,
+    footskip=1.4cm,
+    headsep=1.2cm,
+}
+
+%-----------------------------------------------------------------------------------------------
+%   FONT
+%-----------------------------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[sfdefault,light]{roboto}
+
+%-----------------------------------------------------------------------------------------------
+%   HEADER AND FOOTER   
+%-----------------------------------------------------------------------------------------------
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\small\classHomework\ifdef{\className}{\ (\className):}{}\ \homeworkTitle}
+\chead{}
+\rhead{\small\ifdef{\authorName}{\authorName}{\ifdef{dueDate}{Due\ \dueDate}{}}}
+
+\lfoot{}
+\cfoot{\small Page\ \thepage\ of\ \pageref{LastPage}}
+\rfoot{\includegraphics[scale=0.06]{logo-unige.png}}
+
+\renewcommand\headrulewidth{0.5pt}
+
+%-------------------------------------------------------------------------------------------------
+%   TITLE PAGE
+%-------------------------------------------------------------------------------------------------
+
+\author{\textbf{\authorName}}
+\date{}
+
+\title{
+    \thispagestyle{empty}
+    \vspace{0.2\textheight}
+    \textbf{\classHomework:\ \homeworkTitle}\\[-4pt]
+    \ifdef{\classHomework}{{\small Due\ on\ \dueDate}\\}{}
+    \ifdef{\className}{{\large \textit{\className}}}{}
+    \vspace{0.32\textheight}
+
+    \includegraphics[scale=0.2]{logo-unige.png}
+}
