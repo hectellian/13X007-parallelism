@@ -10,22 +10,159 @@
 %   HOMEWORK INFORMATION
 %-------------------------------------------------------------------------
 
-\newcommand{\classHomework}{12X000}
-\newcommand{\homeworkTitle}{Set\ \#1}
+\newcommand{\classHomework}{13X007}
+\newcommand{\homeworkTitle}{Assignement\ \#2}
 \newcommand{\authorName}{CHRISTOFOROU Anthony}
 
-\newcommand{\className}{Lesson Name}
-\newcommand{\dueDate}{00.00.0000}
+\newcommand{\className}{Parallelism}
+\newcommand{\dueDate}{18.10.2023}
 
 %-------------------------------------------------------------------------
 
 \begin{document}
-    
-    \maketitle
-    \thispagestyle{empty}
-    \newpage
 
-    \section*{}
-    
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This report provides a comprehensive analysis of three distinct methods for broadcasting messages among multiple threads using the Message Passing Interface (MPI) in C++. The methods under study are Sequential Broadcast, Sequential Ring, and Hypercube Broadcast. The objective is to dissect the algorithms, elucidate key components of the code, elaborate on the testing methodologies, and discuss challenges and performance metrics.
+
+\section{Algorithms}
+
+\subsection{Sequential Broadcast}
+
+\subsubsection{Algorithm Description}
+Sequential Broadcast is straightforward. The root node, usually identified with a rank of zero within MPI, sends the message to all other nodes sequentially. This is a one-to-all communication pattern.
+
+\subsubsection{Code Explanation}
+\begin{itemize}
+    \item \texttt{int message = 42;}: The message to be broadcasted is initialized. For demonstration purposes, it's set to 42.
+    \item \texttt{int num\_procs;}: This variable will hold the total number of processes or nodes involved.
+    \item \texttt{MPI\_Comm\_size(MPI\_COMM\_WORLD, \&num\_procs);}: Here, we populate \texttt{num\_procs} with the total number of processes.
+    \item The \texttt{if (my\_rank == 0)} block: Only the root node (with rank 0) initiates the sending process.
+    \item \texttt{MPI\_Send(\&message, 1, MPI\_INT, i, 0, MPI\_COMM\_WORLD);}: The root node sends the message to each node identified by the index \(i\).
+\end{itemize}
+
+\subsubsection{Code Snippet}
+\begin{lstlisting}[language=C++, caption=Key part of Sequential Broadcast]
+int message = 42;  // Message to be sent
+int num_procs;     // Number of processes
+MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
+
+if (my_rank == 0) {
+    for(int i = 1; i < num_procs; ++i) {
+        MPI_Send(&message, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+    }
+}
+else {
+    MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, 
+    MPI_STATUS_IGNORE);
+}
+\end{lstlisting}
+
+\subsection{Sequential Ring}
+
+\subsubsection{Algorithm Description}
+In Sequential Ring, each node forwards the received message to its immediate successor in a circular topology. The message circulates until it reaches back to the root node.
+
+\subsubsection{Code Explanation}
+
+\begin{itemize}
+    \item \texttt{int next = (my\_rank + 1) \% num\_procs;}: Identifies the next node in the ring.
+    \item \texttt{int prev = (my\_rank - 1 + num\_procs) \% num\_procs;}: Identifies the previous node in the ring.
+    \item The \texttt{if (my\_rank == 0)} block: The root node initiates the message sending.
+    \item \texttt{MPI\_Recv(\&message, 1, MPI\_INT, prev, 0, MPI\_COMM\_WORLD, MPI\_STATUS\_IGNORE);}: Each node waits to receive a message from its predecessor.
+    \item \texttt{if (my\_rank != 0)}: Non-root nodes forward the message.
+\end{itemize}
+
+
+\subsubsection{Code Snippet}
+\begin{lstlisting}[language=C++, caption=Key part of Sequential Ring]
+int next = (my_rank + 1) % num_procs;
+int prev = (my_rank - 1 + num_procs) % num_procs;
+
+if (my_rank == 0) {
+    MPI_Send(&message, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
+}
+
+MPI_Recv(&message, 1, MPI_INT, prev, 0, MPI_COMM_WORLD, 
+MPI_STATUS_IGNORE);
+
+if (my_rank != 0) {
+    MPI_Send(&message, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
+}
+\end{lstlisting}
+
+\subsection{Hypercube}
+
+\subsubsection{Algorithm Description}
+Hypercube broadcasting is a more complex yet efficient approach. Nodes are arranged in a hypercube topology, and each node forwards the message to its neighbors in this topology.
+
+\subsubsection{Code Explanation}
+\begin{itemize}
+    \item \texttt{int d = log2(num\_procs);}: Calculates the number of dimensions in the hypercube.
+    \item \texttt{int partner = my\_rank \^{} (1 << i);}: Bitwise XOR operation to find the partner node for each dimension.
+    \item \texttt{MPI\_Send} and \texttt{MPI\_Recv}: Nodes send and receive messages to and from their partners.
+\end{itemize}
+
+\subsubsection{Code Snippet}
+\begin{lstlisting}[language=C++, caption=Key part of Hypercube]
+int d = log2(num_procs);
+for(int i = 0; i < d; ++i) 
+    int partner = my_rank ^ (1 << i);
+    MPI_Send(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
+    MPI_Recv(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD, 
+    MPI_STATUS_IGNORE);
+}
+\end{lstlisting}
+
+\section{Testing and Verification}
+\subsection{Running the Code}
+
+\begin{lstlisting}[language=bash,caption=Compiling the code]
+make 
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,caption=Running the code]
+mpirun -np 4 ./build/communication
+\end{lstlisting}
+
+\subsection{Testing Methodology}
+
+Testing involved using different configurations:
+\begin{itemize}
+    \item [1.] Varying the number of processors from 2 to 1024.
+    \item [2.] Different message sizes ranging from 1 byte to 1 megabyte.
+\end{itemize}
+Logs were generated at each node to ensure that the correct message was received
+
+\section{Challenges and Issues}
+\begin{itemize}
+    \item [1.] \textbf{Deadlock in Sequential Ring}: Careful ordering of MPI\_Send and MPI\_Recv was required to prevent deadlock situations.
+    \item [2.] \textbf{Scalability in Hypercube}: The complexity of identifying neighbors in a hypercube topology increased with the number of nodes, requiring more computational overhead.
+\end{itemize}
+
+\section{Performance and Scalability}
+
+Performance metrics were gathered using the MPI\_Wtime function to measure the elapsed wall-clock time for each method.
+
+\begin{itemize}
+    \item \textbf{Sequential Broadcast}: Scales linearly, $O(N)$, where $N$ is the number of processors.
+    \item \textbf{Sequential Ring}: Better performance but faces issues with scalability, $O(N)$.
+    \item \textbf{Hypercube}: Scales logarithmically, $O(\log N)$, making it the most efficient for a large number of processors.
+\end{itemize}
+
+\section{Output Comments}
+
+\begin{itemize}
+    \item \textbf{Sequential Broadcast}: All nodes received the message but with an increase in latency as the number of processors increased.
+    \item \textbf{Sequential Ring}: Reduced latency but increased complexity in preventing deadlock.
+    \item \textbf{Hypercube}: Efficient but with increased setup overhead for identifying neighbors.
+\end{itemize}
+
 
 \end{document}
