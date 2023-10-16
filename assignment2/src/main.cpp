@@ -1,6 +1,7 @@
 #include <mpi.h>
 #include <iostream>
 #include <vector>
+#include <cstring>
 
 #include "communications.hpp"
 
