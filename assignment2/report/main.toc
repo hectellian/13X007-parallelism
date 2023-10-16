@@ -1,0 +1,20 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {section}{\numberline {2}Algorithms}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Sequential Broadcast}{3}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Algorithm Description}{3}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Code Explanation}{3}{}%
+\contentsline {subsubsection}{\numberline {2.1.3}Code Snippet}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Sequential Ring}{4}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Algorithm Description}{4}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Code Explanation}{4}{}%
+\contentsline {subsubsection}{\numberline {2.2.3}Code Snippet}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Hypercube}{4}{}%
+\contentsline {subsubsection}{\numberline {2.3.1}Algorithm Description}{4}{}%
+\contentsline {subsubsection}{\numberline {2.3.2}Code Explanation}{4}{}%
+\contentsline {subsubsection}{\numberline {2.3.3}Code Snippet}{5}{}%
+\contentsline {section}{\numberline {3}Testing and Verification}{5}{}%
+\contentsline {subsection}{\numberline {3.1}Running the Code}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Testing Methodology}{5}{}%
+\contentsline {section}{\numberline {4}Challenges and Issues}{5}{}%
+\contentsline {section}{\numberline {5}Performance and Scalability}{6}{}%
+\contentsline {section}{\numberline {6}Output Comments}{6}{}%
