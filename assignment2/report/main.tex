@@ -104,16 +104,16 @@ Hypercube broadcasting is a more complex yet efficient approach. Nodes are arran
 
 \subsubsection{Code Explanation}
 \begin{itemize}
-    \item \texttt{int d = log2(num\_procs);}: Calculates the number of dimensions in the hypercube.
-    \item \texttt{int partner = my\_rank \^{} (1 << i);}: Bitwise XOR operation to find the partner node for each dimension.
+    \item \texttt{int dim = log2(size);}: Calculates the number of dimensions in the hypercube.
+    \item \texttt{int partner = rank \^{} (1 << i);}: Bitwise XOR operation to find the partner node for each dimension.
     \item \texttt{MPI\_Send} and \texttt{MPI\_Recv}: Nodes send and receive messages to and from their partners.
 \end{itemize}
 
 \subsubsection{Code Snippet}
 \begin{lstlisting}[language=C++, caption=Key part of Hypercube]
-int d = log2(num_procs);
-for(int i = 0; i < d; ++i) 
-    int partner = my_rank ^ (1 << i);
+int dim = log2(size);
+for(int i = 0; i < dim; ++i) 
+    int partner = rank ^ (1 << i);
     MPI_Send(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
     MPI_Recv(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD, 
     MPI_STATUS_IGNORE);
@@ -129,6 +129,42 @@ make
 
 \begin{lstlisting}[language=bash,caption=Running the code]
 mpirun -np 4 ./build/communication
+\end{lstlisting}
+
+\subsection{Using Baobab}
+
+To be able to experience real-world performance, the code was run on the Baobab cluster. The following commands were used to compile and run the code:
+
+\begin{lstlisting}[language=bash,caption=Compiling the code]
+module load CUDA
+module load foss
+make
+\end{lstlisting}
+
+In order to efficiently manage the cluster resources, an SBATCH script named \texttt{run.sbatch} was used. This script provides Slurm with the specifications required for the job. Here's a breakdown of the SBATCH script's main components:
+
+\begin{lstlisting}[language=bash,caption=SBATCH script]
+#!/bin/sh
+#SBATCH --job-name broadcast          
+#SBATCH --error broadcast-error.e%j   
+#SBATCH --output broadcast-out.o%j    
+#SBATCH --ntasks 16                   
+#SBATCH --cpus-per-task 1             
+#SBATCH --partition debug-cpu         
+#SBATCH --time 15:00                 
+
+module load CUDA
+module load foss
+
+echo $SLURM_NODELIST
+
+srun --mpi=pmi2 ./build/communication broadcast
+srun --mpi=pmi2 ./build/communication ring
+srun --mpi=pmi2 ./build/communication hypercube
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,caption=Running the code]
+sbatch run.sbatch
 \end{lstlisting}
 
 \subsection{Testing Methodology}

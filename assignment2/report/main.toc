@@ -14,7 +14,8 @@
 \contentsline {subsubsection}{\numberline {2.3.3}Code Snippet}{5}{}%
 \contentsline {section}{\numberline {3}Testing and Verification}{5}{}%
 \contentsline {subsection}{\numberline {3.1}Running the Code}{5}{}%
-\contentsline {subsection}{\numberline {3.2}Testing Methodology}{5}{}%
-\contentsline {section}{\numberline {4}Challenges and Issues}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Using Baobab}{5}{}%
+\contentsline {subsection}{\numberline {3.3}Testing Methodology}{6}{}%
+\contentsline {section}{\numberline {4}Challenges and Issues}{6}{}%
 \contentsline {section}{\numberline {5}Performance and Scalability}{6}{}%
-\contentsline {section}{\numberline {6}Output Comments}{6}{}%
+\contentsline {section}{\numberline {6}Output Comments}{7}{}%

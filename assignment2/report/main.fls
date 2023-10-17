@@ -594,6 +594,13 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/google/roboto/Roboto-LightItalic-lf-ts1.tfm
+INPUT ./img/logo-unige.png
+INPUT ./img/logo-unige.png
+INPUT ./img/logo-unige.png
+INPUT ./img/logo-unige.png
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/google/roboto/Roboto-LightItalic-lf-ts1.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/google/roboto/Roboto-LightItalic-lf-ts1--base.tfm
 INPUT ./img/logo-unige.png
 INPUT ./img/logo-unige.png
 INPUT ./img/logo-unige.png
@@ -603,8 +610,8 @@ INPUT ./img/logo-unige.png
 INPUT ./img/logo-unige.png
 INPUT ./img/logo-unige.png
 INPUT main.aux
-INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_ocbbsb.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Bold.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Light.pfb
