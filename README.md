@@ -76,7 +76,7 @@ Baobab is a high-performance computing (HPC) cluster. To run your projects on Ba
     Use `scp` or `rsync` to transfer your project files to Baobab.
 
     ```bash
-    scp -r 13X007-parallelism username@baobab.hpc.unige.ch:/path/to/destination
+    scp -r 13X007-parallelism username@login2.baobab.hpc.unige.ch:/path/to/destination
     ```
 
 > [!NOTE]
