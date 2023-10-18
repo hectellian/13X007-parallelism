@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1697558087 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment2/report/main.tex" "main.pdf" "main" 1697558087
+["pdflatex"] 1697646985 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment2/report/main.tex" "main.pdf" "main" 1697646986
   "/etc/texmf/web2c/texmf.cnf" 1697280618 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment2/report/main.tex" 1697558086 8135 6f989a71fe66223abf8ac04d614a2924 ""
+  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment2/report/main.tex" 1697646985 20999 a221309aa3b6e5ebd19551dba4af3963 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc" 1576101225 3075 0696ceafc85b8352a913efb9ba64bc17 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_ocbbsb.enc" 1576101225 3314 42351250ac95a91f488e14b5633f75ce ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -17,6 +17,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/google/roboto/Roboto-LightItalic-lf-ts1.tfm" 1576101225 1512 5193c3ace74f98681c96e83f3d4327f8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1095.tfm" 1136768653 1536 a988bfe554c1f79514bd46d13c3c64ce ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm" 1136768653 1536 487c9b46984a816c7ed238d0674595c7 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -105,13 +106,14 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1636152094 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb" 1697371237 169670 48d12e69c9a3b23c81f6d703ccbd4554 ""
+  "/usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb" 1697371237 167085 68de377d2744a68a88fa40a1f610615a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697371243 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1697371258 2800007 c3765f9169c6b879828b37cf1804f5d0 ""
   "img/logo-unige.png" 1697280562 110559 bee65c350753666ab19a83ccc008ed56 ""
-  "main.aux" 1697558087 3318 408a282f15a7a54b5f87d3aa2a40fcfc "pdflatex"
-  "main.tex" 1697558086 8135 6f989a71fe66223abf8ac04d614a2924 ""
-  "main.toc" 1697558087 1454 2dc498a0e7f7bd98c41ddc0e74520a57 "pdflatex"
+  "main.aux" 1697646986 4238 04e694f4d4a82a4504221c4db115d2d4 "pdflatex"
+  "main.tex" 1697646985 20999 a221309aa3b6e5ebd19551dba4af3963 ""
+  "main.toc" 1697646986 2015 c8d8d120ac95a60b8b8d35bf60e7b5a4 "pdflatex"
   "structure.tex" 1697280562 2680 b0889cfab5d5fdbb9ff9c31e3d146913 ""
   (generated)
   "main.aux"

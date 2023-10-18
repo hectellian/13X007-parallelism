@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.15)  17 OCT 2023 17:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.15)  18 OCT 2023 18:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -437,7 +437,10 @@ LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
 (Font)              `T1/Roboto-LF/bold/n' on input line 1.
 LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
 (Font)              scaled to size 10.95pt on input line 1.
-)
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 23.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+))
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
@@ -460,10 +463,7 @@ LaTeX Font Info:    Font shape `TS1/Roboto-LF/l/n' aliased to
 (Font)              `TS1/Roboto-LF/light/n' on input line 43.
 LaTeX Font Info:    Font shape `TS1/Roboto-LF/light/n' will be
 (Font)              scaled to size 10.95pt on input line 43.
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 43.
- (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+ (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -485,7 +485,7 @@ LaTeX Font Info:    Font shape `T1/Roboto-LF/light/it' will be
 (Font)              scaled to size 10.95pt on input line 52.
 File: ./img/logo-unige.png Graphic file (type png)
 <use ./img/logo-unige.png>
-Package pdftex.def Info: ./img/logo-unige.png  used on input line 72.
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 68.
 (pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
 
 Package fancyhdr Warning: \footskip is too small (39.83368pt): 
@@ -493,23 +493,18 @@ Package fancyhdr Warning: \footskip is too small (39.83368pt):
 (fancyhdr)                \setlength{\footskip}{55.14862pt}.
 
 [3]
-Overfull \hbox (25.17584pt too wide) in paragraph at lines 78--79
-[]\T1/cmtt/m/n/10.95 MPI_Recv(&message, 1, MPI_INT, prev, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);\T1/Roboto-LF/light/n/10.95 : Each
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 84--84
+Overfull \hbox (6.0pt too wide) in paragraph at lines 87--87
 [][][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 84--84
+Overfull \hbox (6.0pt too wide) in paragraph at lines 87--87
 [][][][][][][] 
  []
 
 File: ./img/logo-unige.png Graphic file (type png)
 <use ./img/logo-unige.png>
-Package pdftex.def Info: ./img/logo-unige.png  used on input line 110.
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 117.
 (pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
 
 Package fancyhdr Warning: \footskip is too small (39.83368pt): 
@@ -517,74 +512,39 @@ Package fancyhdr Warning: \footskip is too small (39.83368pt):
 (fancyhdr)                \setlength{\footskip}{55.14862pt}.
 
 [4]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 113--113
+Overfull \hbox (6.0pt too wide) in paragraph at lines 125--125
 [][][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 113--113
-[][][][][][][] 
- []
-
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-Overfull \hbox (6.0pt too wide) in paragraph at lines 126--126
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 126--126
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 130--130
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 130--130
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 138--138
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 138--138
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 146--146
-[][][][][][][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 146--146
+Overfull \hbox (6.0pt too wide) in paragraph at lines 125--125
 [][][][][][][] 
  []
 
 LaTeX Font Info:    Font shape `TS1/Roboto-LF/l/it' aliased to
-(Font)              `TS1/Roboto-LF/light/it' on input line 148.
+(Font)              `TS1/Roboto-LF/light/it' on input line 128.
 LaTeX Font Info:    Font shape `TS1/Roboto-LF/light/it' will be
-(Font)              scaled to size 10.95pt on input line 148.
+(Font)              scaled to size 10.95pt on input line 128.
 File: ./img/logo-unige.png Graphic file (type png)
 <use ./img/logo-unige.png>
-Package pdftex.def Info: ./img/logo-unige.png  used on input line 156.
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 159.
 (pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
 
 Package fancyhdr Warning: \footskip is too small (39.83368pt): 
 (fancyhdr)                Make it at least 55.14862pt, for example:
 (fancyhdr)                \setlength{\footskip}{55.14862pt}.
 
-[5]
-Overfull \hbox (6.0pt too wide) in paragraph at lines 166--166
+[5] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Overfull \hbox (6.0pt too wide) in paragraph at lines 162--162
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 162--162
 [][][][][][][] 
  []
 
@@ -593,44 +553,144 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 166--166
 [][][][][][][] 
  []
 
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 166--166
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 174--174
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 174--174
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 182--182
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 182--182
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 202--202
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 202--202
+[][][][][][][] 
+ []
+
 File: ./img/logo-unige.png Graphic file (type png)
 <use ./img/logo-unige.png>
-Package pdftex.def Info: ./img/logo-unige.png  used on input line 201.
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 210.
 (pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
 
 Package fancyhdr Warning: \footskip is too small (39.83368pt): 
 (fancyhdr)                Make it at least 55.14862pt, for example:
 (fancyhdr)                \setlength{\footskip}{55.14862pt}.
 
-[6] 
+[6]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 240.
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 247.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[7]
+Overfull \hbox (6.0pt too wide) in paragraph at lines 266--266
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 266--266
+[][][][][][][] 
+ []
+
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 289.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[8]
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 337.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[9]
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 386.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[10]
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 435.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[11] 
 AED: lastpage setting LastPage
 File: ./img/logo-unige.png Graphic file (type png)
 <use ./img/logo-unige.png>
-Package pdftex.def Info: ./img/logo-unige.png  used on input line 204.
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 458.
 (pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
 
 Package fancyhdr Warning: \footskip is too small (39.83368pt): 
 (fancyhdr)                Make it at least 55.14862pt, for example:
 (fancyhdr)                \setlength{\footskip}{55.14862pt}.
 
-[7] (./main.aux)
+[12] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 8877 strings out of 478287
- 139805 string characters out of 5849288
- 632463 words of memory out of 5000000
- 26928 multiletter control sequences out of 15000+600000
- 534210 words of font info for 81 fonts, out of 8000000 for 9000
+ 8900 strings out of 478287
+ 140000 string characters out of 5849288
+ 690101 words of memory out of 5000000
+ 26950 multiletter control sequences out of 15000+600000
+ 534523 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,16n,99p,532b,1895s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_ocbbsb.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc}</usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Light.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-LightItalic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on main.pdf (7 pages, 257291 bytes).
+ 60i,16n,99p,532b,1899s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_ocbbsb.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc}</usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Light.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-LightItalic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (12 pages, 297177 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

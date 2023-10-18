@@ -8,14 +8,20 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Algorithm Description}{4}{}%
 \contentsline {subsubsection}{\numberline {2.2.2}Code Explanation}{4}{}%
 \contentsline {subsubsection}{\numberline {2.2.3}Code Snippet}{4}{}%
-\contentsline {subsection}{\numberline {2.3}Hypercube}{4}{}%
-\contentsline {subsubsection}{\numberline {2.3.1}Algorithm Description}{4}{}%
-\contentsline {subsubsection}{\numberline {2.3.2}Code Explanation}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Hypercube}{5}{}%
+\contentsline {subsubsection}{\numberline {2.3.1}Algorithm Description}{5}{}%
+\contentsline {subsubsection}{\numberline {2.3.2}Code Explanation}{5}{}%
 \contentsline {subsubsection}{\numberline {2.3.3}Code Snippet}{5}{}%
-\contentsline {section}{\numberline {3}Testing and Verification}{5}{}%
-\contentsline {subsection}{\numberline {3.1}Running the Code}{5}{}%
-\contentsline {subsection}{\numberline {3.2}Using Baobab}{5}{}%
-\contentsline {subsection}{\numberline {3.3}Testing Methodology}{6}{}%
-\contentsline {section}{\numberline {4}Challenges and Issues}{6}{}%
-\contentsline {section}{\numberline {5}Performance and Scalability}{6}{}%
-\contentsline {section}{\numberline {6}Output Comments}{7}{}%
+\contentsline {section}{\numberline {3}Testing and Verification}{6}{}%
+\contentsline {subsection}{\numberline {3.1}Running the Code}{6}{}%
+\contentsline {subsection}{\numberline {3.2}Using Baobab}{6}{}%
+\contentsline {subsection}{\numberline {3.3}Testing Methodology}{7}{}%
+\contentsline {section}{\numberline {4}Challenges and Issues}{7}{}%
+\contentsline {section}{\numberline {5}Performance and Scalability}{7}{}%
+\contentsline {section}{\numberline {6}Explanation of Output Logs and Determinism}{7}{}%
+\contentsline {subsection}{\numberline {6.1}Non-Determinism in Output}{7}{}%
+\contentsline {subsection}{\numberline {6.2}Role of \texttt {LRecv} in Determinism}{7}{}%
+\contentsline {subsection}{\numberline {6.3}Role of \texttt {LSend} in Determinism}{8}{}%
+\contentsline {subsection}{\numberline {6.4}Combined Use of \texttt {LRecv} and \texttt {LSend}}{8}{}%
+\contentsline {subsection}{\numberline {6.5}Example: Hypercube with \texttt {LSend} and \texttt {LRecv}}{8}{}%
+\contentsline {subsection}{\numberline {6.6}Output Logs}{8}{}%

@@ -11,7 +11,7 @@
 %-------------------------------------------------------------------------
 
 \newcommand{\classHomework}{13X007}
-\newcommand{\homeworkTitle}{Assignement\ \#2}
+\newcommand{\homeworkTitle}{Comprehensive Analysis of Message Broadcasting Methods in MPI}
 \newcommand{\authorName}{CHRISTOFOROU Anthony}
 
 \newcommand{\className}{Parallelism}
@@ -40,27 +40,30 @@ Sequential Broadcast is straightforward. The root node, usually identified with 
 
 \subsubsection{Code Explanation}
 \begin{itemize}
-    \item \texttt{int message = 42;}: The message to be broadcasted is initialized. For demonstration purposes, it's set to 42.
-    \item \texttt{int num\_procs;}: This variable will hold the total number of processes or nodes involved.
-    \item \texttt{MPI\_Comm\_size(MPI\_COMM\_WORLD, \&num\_procs);}: Here, we populate \texttt{num\_procs} with the total number of processes.
-    \item The \texttt{if (my\_rank == 0)} block: Only the root node (with rank 0) initiates the sending process.
-    \item \texttt{MPI\_Send(\&message, 1, MPI\_INT, i, 0, MPI\_COMM\_WORLD);}: The root node sends the message to each node identified by the index \(i\).
+    \item \texttt{int data = rank;}: The message to be broadcasted is initialized. For demonstration purposes, it's set to the rank number.
+    \item \texttt{int size;}: This variable will hold the total number of processes or nodes involved.
+    \item \texttt{MPI\_Comm\_size(MPI\_COMM\_WORLD, \&size);}: Here, we populate \texttt{size} with the total number of processes.
+    \item The \texttt{if (rank == 0)} block: Only the root node (with rank 0) initiates the sending process.
+    \item \texttt{MPI\_Send(\&data, 1, MPI\_INT, i, 0, MPI\_COMM\_WORLD);}: The root node sends the message to each node identified by the index \(i\).
 \end{itemize}
 
 \subsubsection{Code Snippet}
 \begin{lstlisting}[language=C++, caption=Key part of Sequential Broadcast]
-int message = 42;  // Message to be sent
-int num_procs;     // Number of processes
-MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
-
-if (my_rank == 0) {
-    for(int i = 1; i < num_procs; ++i) {
-        MPI_Send(&message, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+int data = rank;  // Initialize data with the rank of the process
+int received_data;
+    
+if(rank == 0) {
+    // Root process sends data to all other processes
+    for(int i = 1; i < size; i++) {
+        std::cout << "Broadcast: Rank " << rank << 
+        " sending data to rank " << i << std::endl;
+        MPI_Send(&received_data, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
     }
-}
-else {
-    MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, 
-    MPI_STATUS_IGNORE);
+} else {
+    // All other processes receive data from root process
+    MPI_Recv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &stat);
+    std::cout << "Broadcast: Rank " << rank << 
+    " received data from rank 0" << std::endl;
 }
 \end{lstlisting}
 
@@ -72,28 +75,37 @@ In Sequential Ring, each node forwards the received message to its immediate suc
 \subsubsection{Code Explanation}
 
 \begin{itemize}
-    \item \texttt{int next = (my\_rank + 1) \% num\_procs;}: Identifies the next node in the ring.
-    \item \texttt{int prev = (my\_rank - 1 + num\_procs) \% num\_procs;}: Identifies the previous node in the ring.
-    \item The \texttt{if (my\_rank == 0)} block: The root node initiates the message sending.
-    \item \texttt{MPI\_Recv(\&message, 1, MPI\_INT, prev, 0, MPI\_COMM\_WORLD, MPI\_STATUS\_IGNORE);}: Each node waits to receive a message from its predecessor.
-    \item \texttt{if (my\_rank != 0)}: Non-root nodes forward the message.
+    \item \texttt{int next = (rank + 1) \% size;}: Identifies the next node in the ring.
+    \item \texttt{int prev = (rank - 1 + size) \% size;}: Identifies the previous node in the ring.
+    \item The \texttt{if (rank == 0)} block: The root node initiates the message sending.
+    \item \texttt{MPI\_Recv(\&data, 1, MPI\_INT, prev, 0, MPI\_COMM\_WORLD, \&stat;}: Each node waits to receive a message from its predecessor.
+    \item \texttt{if (rank != 0)}: Non-root nodes forward the message.
 \end{itemize}
 
 
 \subsubsection{Code Snippet}
 \begin{lstlisting}[language=C++, caption=Key part of Sequential Ring]
-int next = (my_rank + 1) % num_procs;
-int prev = (my_rank - 1 + num_procs) % num_procs;
+// Calculate the next process in the ring
+int next = (rank + 1) % size;  
+// Calculate the previous process in the ring
+int prev = (rank + size - 1) % size;  
 
-if (my_rank == 0) {
-    MPI_Send(&message, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
-}
-
-MPI_Recv(&message, 1, MPI_INT, prev, 0, MPI_COMM_WORLD, 
-MPI_STATUS_IGNORE);
-
-if (my_rank != 0) {
-    MPI_Send(&message, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
+if(rank == 0) {
+    // Root process starts the ring
+    std::cout << "Ring: Rank " << rank << 
+    " sending data to rank " << next << std::endl;
+    MPI_Send(&data, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
+} else {
+    // Receive data from the previous process
+    MPI_Recv(&received_data, 1, MPI_INT, prev, 0, 
+    MPI_COMM_WORLD, &stat);
+    std::cout << "Ring: Rank " << rank << 
+    " received data from rank " << prev << std::endl;
+        
+    // Send data to the next process
+    std::cout << "Ring: Rank " << rank << 
+    " sending data to rank " << next << std::endl;
+    MPI_Send(&data, 1, MPI_INT, next, 0, MPI_COMM_WORLD);
 }
 \end{lstlisting}
 
@@ -104,20 +116,44 @@ Hypercube broadcasting is a more complex yet efficient approach. Nodes are arran
 
 \subsubsection{Code Explanation}
 \begin{itemize}
-    \item \texttt{int dim = log2(size);}: Calculates the number of dimensions in the hypercube.
+    \item \texttt{int dim = std::log2(size);}: Calculates the number of dimensions in the hypercube.
     \item \texttt{int partner = rank \^{} (1 << i);}: Bitwise XOR operation to find the partner node for each dimension.
     \item \texttt{MPI\_Send} and \texttt{MPI\_Recv}: Nodes send and receive messages to and from their partners.
 \end{itemize}
 
 \subsubsection{Code Snippet}
 \begin{lstlisting}[language=C++, caption=Key part of Hypercube]
-int dim = log2(size);
-for(int i = 0; i < dim; ++i) 
-    int partner = rank ^ (1 << i);
-    MPI_Send(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
-    MPI_Recv(&message, 1, MPI_INT, partner, 0, MPI_COMM_WORLD, 
-    MPI_STATUS_IGNORE);
-}
+int dim = std::log2(size);
+for (int i = 0; i < dim; ++i) {
+    // Compute partner rank by XOR-ing with 2^i
+    int partner = rank ^ (1 << i);  
+    int received_data;
+
+    if (rank < partner) {
+        // Lower-ranked process sends first, then receives
+        std::cout << "Hypercube: Rank " << rank << 
+        " sending data to rank " << partner << std::endl;
+        MPI_Send(&data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
+
+        MPI_Recv(&received_data, 1, MPI_INT, partner, 0, 
+        MPI_COMM_WORLD, &stat);
+        std::cout << "Hypercube: Rank " << rank << 
+        " received data from rank " << partner << std::endl;
+    } else {
+        // Higher-ranked process receives first, then sends
+        MPI_Recv(&received_data, 1, MPI_INT, partner, 0, 
+        MPI_COMM_WORLD, &stat);
+        std::cout << "Hypercube: Rank " << rank << 
+        " received data from rank " << partner << std::endl;
+
+        std::cout << "Hypercube: Rank " << rank << 
+        " sending data to rank " << partner << std::endl;
+        MPI_Send(&data, 1, MPI_INT, partner, 0, MPI_COMM_WORLD);
+    }
+
+    // Update the data by adding the received_data
+    data += received_data; 
+    }
 \end{lstlisting}
 
 \section{Testing and Verification}
@@ -171,8 +207,8 @@ sbatch run.sbatch
 
 Testing involved using different configurations:
 \begin{itemize}
-    \item [1.] Varying the number of processors from 2 to 1024.
-    \item [2.] Different message sizes ranging from 1 byte to 1 megabyte.
+    \item [1.] Varying the number of processors from 2 to 16.
+    \item [2.] Different message sizes.
 \end{itemize}
 Logs were generated at each node to ensure that the correct message was received
 
@@ -180,11 +216,14 @@ Logs were generated at each node to ensure that the correct message was received
 \begin{itemize}
     \item [1.] \textbf{Deadlock in Sequential Ring}: Careful ordering of MPI\_Send and MPI\_Recv was required to prevent deadlock situations.
     \item [2.] \textbf{Scalability in Hypercube}: The complexity of identifying neighbors in a hypercube topology increased with the number of nodes, requiring more computational overhead.
+    \item [3.] \textbf{Baobab Issues}: It was pretty hard to run my code in Baobab as it was the first time I was using it. The documentation was not very clear and I had to research some things on my own.
+The first thing was that i had to compile my code on Baobab so that the C libraries would be compatible with the cluster. I had to load the CUDA and foss modules in my /texttt{.bashrc} file to be able to compile my code. 
+The second thing was that I had to add the \texttt{--mpi=pmi2} flag to the \texttt{srun} command as the mpi version detected by the cluster was not compatible with it.
 \end{itemize}
 
 \section{Performance and Scalability}
 
-Performance metrics were gathered using the MPI\_Wtime function to measure the elapsed wall-clock time for each method.
+Performance metrics were gathered to measure the elapsed wall-clock time for each method.
 
 \begin{itemize}
     \item \textbf{Sequential Broadcast}: Scales linearly, $O(N)$, where $N$ is the number of processors.
@@ -192,13 +231,228 @@ Performance metrics were gathered using the MPI\_Wtime function to measure the e
     \item \textbf{Hypercube}: Scales logarithmically, $O(\log N)$, making it the most efficient for a large number of processors.
 \end{itemize}
 
-\section{Output Comments}
+\section{Explanation of Output Logs and Determinism}
 
-\begin{itemize}
-    \item \textbf{Sequential Broadcast}: All nodes received the message but with an increase in latency as the number of processors increased.
-    \item \textbf{Sequential Ring}: Reduced latency but increased complexity in preventing deadlock.
-    \item \textbf{Hypercube}: Efficient but with increased setup overhead for identifying neighbors.
-\end{itemize}
+\subsection{Non-Determinism in Output}
 
+The output logs of the various communication schemes, including Sequential Broadcast, Sequential Ring, and Hypercube, exhibit non-deterministic behavior. This non-determinism manifests in the unpredictable order of log messages from the receiving ranks. Such inconsistencies arise due to the asynchronous nature of the underlying message-passing mechanisms.
 
+\subsection{Role of \texttt{LRecv} in Determinism}
+
+Blocking receive operations, denoted as \texttt{LRecv} in parallel programming libraries, can introduce determinism. When a rank uses \texttt{LRecv}, it blocks until it receives the expected message, effectively serializing the communication steps. This ensures that the log messages will appear in a deterministic sequence.
+
+\subsection{Role of \texttt{LSend} in Determinism}
+
+Blocking send operations, represented as \texttt{LSend}, can also contribute to determinism. Unlike asynchronous send operations, \texttt{LSend} blocks the sending rank until the receiving rank has received the message. This ensures a more predictable flow of data and further reduces the chances of non-deterministic log output.
+
+\subsection{Combined Use of \texttt{LRecv} and \texttt{LSend}}
+
+Using \texttt{LRecv} and \texttt{LSend} together provides a robust way to achieve deterministic communication. For example, in the Hypercube scheme, replacing asynchronous sends and receives with \texttt{LSend} and \texttt{LRecv} will enforce a strict ordering of message passing, resulting in deterministic log outputs.
+
+\subsection{Example: Hypercube with \texttt{LSend} and \texttt{LRecv}}
+
+To illustrate, consider a step in the Hypercube algorithm where Rank 2 is supposed to receive a message from Rank 0 and forward it to Rank 3:
+
+\begin{verbatim}
+// Rank 2
+LRecv(message, source=0);
+LSend(message, destination=3);
+\end{verbatim}
+
+Here, Rank 2 will block until it receives the message from Rank 0 (\texttt{LRecv}). Once the message is received, it will then block again until it confirms that Rank 3 has received the forwarded message (\texttt{LSend}). This strict ordering ensures that the log messages follow a deterministic sequence.
+
+\subsection{Output Logs}
+
+\begin{lstlisting}[language=bash,caption=Baobab Output]
+    cpu[001-002]
+    Broadcast: Rank 0 sending data to rank 1
+    Broadcast: Rank 0 sending data to rank 2
+    Broadcast: Rank 1 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 3
+    Broadcast: Rank 2 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 4
+    Broadcast: Rank 3 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 5
+    Broadcast: Rank 4 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 6
+    Broadcast: Rank 5 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 7
+    Broadcast: Rank 6 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 8
+    Broadcast: Rank 7 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 9
+    Broadcast: Rank 8 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 10
+    Broadcast: Rank 9 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 11
+    Broadcast: Rank 10 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 12
+    Broadcast: Rank 11 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 13
+    Broadcast: Rank 12 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 14
+    Broadcast: Rank 13 received data from rank 0
+    Broadcast: Rank 0 sending data to rank 15
+    Broadcast: Rank 14 received data from rank 0
+    Broadcast: Rank 15 received data from rank 0
+    Ring: Rank 0 sending data to rank 1
+    Ring: Rank 1 received data from rank 0
+    Ring: Rank 1 sending data to rank 2
+    Ring: Rank 2 received data from rank 1
+    Ring: Rank 2 sending data to rank 3
+    Ring: Rank 3 received data from rank 2
+    Ring: Rank 3 sending data to rank 4
+    Ring: Rank 4 received data from rank 3
+    Ring: Rank 4 sending data to rank 5
+    Ring: Rank 5 received data from rank 4
+    Ring: Rank 5 sending data to rank 6
+    Ring: Rank 6 received data from rank 5
+    Ring: Rank 6 sending data to rank 7
+    Ring: Rank 7 received data from rank 6
+    Ring: Rank 7 sending data to rank 8
+    Ring: Rank 8 received data from rank 7
+    Ring: Rank 8 sending data to rank 9
+    Ring: Rank 9 received data from rank 8
+    Ring: Rank 9 sending data to rank 10
+    Ring: Rank 10 received data from rank 9
+    Ring: Rank 10 sending data to rank 11
+    Ring: Rank 11 received data from rank 10
+    Ring: Rank 11 sending data to rank 12
+    Ring: Rank 12 received data from rank 11
+    Ring: Rank 12 sending data to rank 13
+    Ring: Rank 13 received data from rank 12
+    Ring: Rank 13 sending data to rank 14
+    Ring: Rank 14 received data from rank 13
+    Ring: Rank 14 sending data to rank 15
+    Ring: Rank 15 received data from rank 14
+    Ring: Rank 15 sending data to rank 0
+    Hypercube: Rank 14 sending data to rank 15
+    Hypercube: Rank 0 sending data to rank 1
+    Hypercube: Rank 15 received data from rank 14
+    Hypercube: Rank 15 sending data to rank 14
+    Hypercube: Rank 14 received data from rank 15
+    Hypercube: Rank 2 sending data to rank 3
+    Hypercube: Rank 4 sending data to rank 5
+    Hypercube: Rank 6 sending data to rank 7
+    Hypercube: Rank 8 sending data to rank 9
+    Hypercube: Rank 10 sending data to rank 11
+    Hypercube: Rank 12 sending data to rank 13
+    Hypercube: Rank 3 received data from rank 2
+    Hypercube: Rank 3 sending data to rank 2
+    Hypercube: Rank 2 received data from rank 3
+    Hypercube: Rank 13 received data from rank 12
+    Hypercube: Rank 13 sending data to rank 12
+    Hypercube: Rank 13 sending data to rank 15
+    Hypercube: Rank 12 received data from rank 13
+    Hypercube: Rank 12 sending data to rank 14
+    Hypercube: Rank 1 received data from rank 0
+    Hypercube: Rank 1 sending data to rank 0
+    Hypercube: Rank 1 sending data to rank 3
+    Hypercube: Rank 0 received data from rank 1
+    Hypercube: Rank 0 sending data to rank 2
+    Hypercube: Rank 5 received data from rank 4
+    Hypercube: Rank 5 sending data to rank 4
+    Hypercube: Rank 5 sending data to rank 7
+    Hypercube: Rank 4 received data from rank 5
+    Hypercube: Rank 4 sending data to rank 6
+    Hypercube: Rank 7 received data from rank 6
+    Hypercube: Rank 7 sending data to rank 6
+    Hypercube: Rank 6 received data from rank 7
+    Hypercube: Rank 15 received data from rank 13
+    Hypercube: Rank 15 sending data to rank 13
+    Hypercube: Rank 9 received data from rank 8
+    Hypercube: Rank 9 sending data to rank 8
+    Hypercube: Rank 9 sending data to rank 11
+    Hypercube: Rank 8 received data from rank 9
+    Hypercube: Rank 8 sending data to rank 10
+    Hypercube: Rank 13 received data from rank 15
+    Hypercube: Rank 14 received data from rank 12
+    Hypercube: Rank 14 sending data to rank 12
+    Hypercube: Rank 11 received data from rank 10
+    Hypercube: Rank 11 sending data to rank 10
+    Hypercube: Rank 10 received data from rank 11
+    Hypercube: Rank 12 received data from rank 14
+    Hypercube: Rank 2 received data from rank 0
+    Hypercube: Rank 2 sending data to rank 0
+    Hypercube: Rank 0 received data from rank 2
+    Hypercube: Rank 0 sending data to rank 4
+    Hypercube: Rank 2 sending data to rank 6
+    Hypercube: Rank 3 received data from rank 1
+    Hypercube: Rank 3 sending data to rank 1
+    Hypercube: Rank 3 sending data to rank 7
+    Hypercube: Rank 1 received data from rank 3
+    Hypercube: Rank 1 sending data to rank 5
+    Hypercube: Rank 7 received data from rank 5
+    Hypercube: Rank 7 sending data to rank 5
+    Hypercube: Rank 1 received data from rank 5
+    Hypercube: Rank 1 sending data to rank 9
+    Hypercube: Rank 5 received data from rank 7
+    Hypercube: Rank 5 received data from rank 1
+    Hypercube: Rank 5 sending data to rank 1
+    Hypercube: Rank 5 sending data to rank 13
+    Hypercube: Rank 6 received data from rank 4
+    Hypercube: Rank 6 sending data to rank 4
+    Hypercube: Rank 0 received data from rank 4
+    Hypercube: Rank 0 sending data to rank 8
+    Hypercube: Rank 4 received data from rank 6
+    Hypercube: Rank 4 received data from rank 0
+    Hypercube: Rank 4 sending data to rank 0
+    Hypercube: Rank 4 sending data to rank 12
+    Hypercube: Rank 10 received data from rank 8
+    Hypercube: Rank 10 sending data to rank 8
+    Hypercube: Rank 10 sending data to rank 14
+    Hypercube: Rank 8 received data from rank 10
+    Hypercube: Rank 8 sending data to rank 12
+    Hypercube: Rank 7 received data from rank 3
+    Hypercube: Rank 7 sending data to rank 3
+    Hypercube: Rank 7 sending data to rank 15
+    Hypercube: Rank 3 received data from rank 7
+    Hypercube: Rank 3 sending data to rank 11
+    Hypercube: Rank 6 received data from rank 2
+    Hypercube: Rank 6 sending data to rank 2
+    Hypercube: Rank 6 sending data to rank 14
+    Hypercube: Rank 2 received data from rank 6
+    Hypercube: Rank 2 sending data to rank 10
+    Hypercube: Rank 14 received data from rank 10
+    Hypercube: Rank 14 sending data to rank 10
+    Hypercube: Rank 10 received data from rank 14
+    Hypercube: Rank 10 received data from rank 2
+    Hypercube: Rank 10 sending data to rank 2
+    Hypercube: Rank 14 received data from rank 6
+    Hypercube: Rank 14 sending data to rank 6
+    Hypercube: Rank 2 received data from rank 10
+    Hypercube: Rank 9 received data from rank 11
+    Hypercube: Rank 9 sending data to rank 13
+    Hypercube: Rank 11 received data from rank 9
+    Hypercube: Rank 11 sending data to rank 9
+    Hypercube: Rank 11 sending data to rank 15
+    Hypercube: Rank 6 received data from rank 14
+    Hypercube: Rank 12 received data from rank 8
+    Hypercube: Rank 12 sending data to rank 8
+    Hypercube: Rank 8 received data from rank 12
+    Hypercube: Rank 8 received data from rank 0
+    Hypercube: Rank 8 sending data to rank 0
+    Hypercube: Rank 0 received data from rank 8
+    Hypercube: Rank 12 received data from rank 4
+    Hypercube: Rank 12 sending data to rank 4
+    Hypercube: Rank 4 received data from rank 12
+    Hypercube: Rank 15 received data from rank 11
+    Hypercube: Rank 15 sending data to rank 11
+    Hypercube: Rank 11 received data from rank 15
+    Hypercube: Rank 15 received data from rank 7
+    Hypercube: Rank 15 sending data to rank 7
+    Hypercube: Rank 11 received data from rank 3
+    Hypercube: Rank 11 sending data to rank 3
+    Hypercube: Rank 3 received data from rank 11
+    Hypercube: Rank 7 received data from rank 15
+    Hypercube: Rank 13 received data from rank 9
+    Hypercube: Rank 13 sending data to rank 9
+    Hypercube: Rank 13 received data from rank 5
+    Hypercube: Rank 13 sending data to rank 5
+    Hypercube: Rank 5 received data from rank 13
+    Hypercube: Rank 9 received data from rank 13
+    Hypercube: Rank 9 received data from rank 1
+    Hypercube: Rank 9 sending data to rank 1
+    Hypercube: Rank 1 received data from rank 9    
+\end{lstlisting}
 \end{document}
