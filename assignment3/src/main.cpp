@@ -12,7 +12,7 @@ const double alpha = 0.01; // Thermal diffusivity
 const double dx = 0.1;
 const double dy = 0.1;
 const double dt = 0.01;
-const int time_steps = 10e5; // Number of time steps to simulate
+const int time_steps = 1e5; // Number of time steps to simulate
 
 // Function to initialize the temperature grid
 void initialize_temperature(std::vector<std::vector<double>> &grid, int rank,
