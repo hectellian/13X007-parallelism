@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/hectellian/Dev/Autumn2023/Paralellism/assignment3",
-      "program": "/home/hectellian/Dev/Autumn2023/Paralellism/assignment3/build/Debug/outDebug",
+      "cwd": "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/src",
+      "program": "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

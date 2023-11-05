@@ -1,119 +1,162 @@
-
 #include <iostream>
-#include <fstream>
-#include <cmath>
-#include <cstring>
 #include <vector>
-#include <iomanip>  // For setting the precision of floating-point values in display
+#include <fstream>
 #include <mpi.h>
 
-using namespace std;
+// Define the domain size and simulation parameters
+const int rows = 64;
+const int cols = 64;
+const double alpha = 0.01; // Thermal diffusivity
+const double dx = 0.1;
+const double dy = 0.1;
+const double dt = 0.01;
+const int time_steps = 100; // Number of time steps to simulate
 
-const int MAX_ITERATIONS = 1e5;
-const int GRID_SIZE_X = 10;
-const int GRID_SIZE_Y = 10;
-const double KAPPA = 0.1;  // Thermal diffusivity
-const double DT = 0.01;    // Time step
-const double DX = 0.1;     // Space step in x direction
-const double DY = 0.1;     // Space step in y direction
-
-// Function to initialize the grid with initial temperatures
-void initializeGrid(vector<vector<double>> &grid, int rows, int cols, double initialTemp) {
-    grid.resize(rows, vector<double>(cols, initialTemp));
-}
-
-// Function to update the grid using the FTCS scheme
-void updateGrid(vector<vector<double>> &grid, int rows, int cols) {
-    vector<vector<double>> newGrid(rows, vector<double>(cols));
-
-    for (int i = 1; i < rows - 1; ++i) {
-        for (int j = 1; j < cols - 1; ++j) {
-            newGrid[i][j] = grid[i][j] + KAPPA * DT * (
-                (grid[i + 1][j] - 2 * grid[i][j] + grid[i - 1][j]) / (DX * DX) +
-                (grid[i][j + 1] - 2 * grid[i][j] + grid[i][j - 1]) / (DY * DY)
-            );
-        }
-    }
-    grid = newGrid;
-}
-
-// Function to display grid state in the terminal
-void displayGrid(const vector<vector<double>> &grid, int rows, int cols) {
-    for (int i = 0; i < rows; ++i) {
+// Function to initialize the temperature grid
+void initialize_temperature(std::vector<std::vector<double>>& grid, int rank, int rows_per_rank, int total_rows) {
+    for (int i = 0; i < rows_per_rank; ++i) {
         for (int j = 0; j < cols; ++j) {
-            cout << setprecision(2) << grid[i][j] << " ";
+            // Set the edges to 1
+            if (i == 0 && rank == 0) { // Top edge of the global domain
+                grid[i][j] = 1.0;
+            } else if (i == rows_per_rank - 1 && rank == total_rows / rows_per_rank - 1) { // Bottom edge of the global domain
+                grid[i][j] = 1.0;
+            } else if (j == 0 || j == cols - 1) { // Left or right edge of the global domain
+                grid[i][j] = 1.0;
+            } else { // Interior points
+                grid[i][j] = 0.0;
+            }
         }
-        cout << endl;
     }
 }
 
-int main(int argc, char* argv[]) {
-    // Initialize MPI
-    MPI_Init(&argc, &argv);
+// Function to update the temperature grid using the FTCS scheme
+void update_temperature(std::vector<std::vector<double>>& grid, std::vector<double>& top_buffer, std::vector<double>& bottom_buffer, int rows_per_rank) {
+    std::vector<std::vector<double>> new_grid = grid;
+    for (int i = 1; i < rows_per_rank - 1; ++i) {
+        for (int j = 1; j < cols - 1; ++j) {
+            double temp_x = (grid[i + 1][j] - 2.0 * grid[i][j] + grid[i - 1][j]) / (dx * dx);
+            double temp_y = (grid[i][j + 1] - 2.0 * grid[i][j] + grid[i][j - 1]) / (dy * dy);
+            new_grid[i][j] = grid[i][j] + alpha * dt * (temp_x + temp_y);
+        }
+    }
+    // Update the top and bottom edges if they are not boundary edges
+    if (!top_buffer.empty()) {
+        for (int j = 1; j < cols - 1; ++j) {
+            double temp_x = (grid[1][j] - 2.0 * grid[0][j] + top_buffer[j]) / (dx * dx);
+            double temp_y = (grid[0][j + 1] - 2.0 * grid[0][j] + grid[0][j - 1]) / (dy * dy);
+            new_grid[0][j] = grid[0][j] + alpha * dt * (temp_x + temp_y);
+        }
+    }
+    if (!bottom_buffer.empty()) {
+        int i = rows_per_rank - 1;
+        for (int j = 1; j < cols - 1; ++j) {
+            double temp_x = (bottom_buffer[j] - 2.0 * grid[i][j] + grid[i - 1][j]) / (dx * dx);
+            double temp_y = (grid[i][j + 1] - 2.0 * grid[i][j] + grid[i][j - 1]) / (dy * dy);
+            new_grid[i][j] = grid[i][j] + alpha * dt * (temp_x + temp_y);
+        }
+    }
+    grid = new_grid;
+}
 
+// Main program
+int main(int argc, char* argv[]) {
+    MPI_Init(&argc, &argv);
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    // Determine the number of rows each process will handle
-    int rows_per_process = GRID_SIZE_X / size;
-
-    vector<vector<double>> localTemperature(rows_per_process, vector<double>(GRID_SIZE_Y));
-
-    // Initialize the grid only in the root process
-    vector<vector<double>> globalTemperature;
-    if (rank == 0) {
-        initializeGrid(globalTemperature, GRID_SIZE_X, GRID_SIZE_Y, 0.0);
+    // Ensure the domain can be evenly distributed
+    if (rows % size != 0) {
+        if (rank == 0) {
+            std::cerr << "Number of rows is not divisible by the size of MPI_COMM_WORLD." << std::endl;
+        }
+        MPI_Finalize();
+        return -1;
     }
 
-    // Scatter initial grid data to all processes
-    MPI_Scatter(&globalTemperature[0][0], rows_per_process * GRID_SIZE_Y, MPI_DOUBLE,
-                &localTemperature[0][0], rows_per_process * GRID_SIZE_Y, MPI_DOUBLE,
-                0, MPI_COMM_WORLD);
+    const int rows_per_rank = rows / size;
+    std::vector<std::vector<double>> local_grid(rows_per_rank, std::vector<double>(cols, 0.0));
 
-    double startTime = MPI_Wtime();  // Start time measurement
+    // Initialize the local grid with initial temperature values
+    initialize_temperature(local_grid, rank, rows_per_rank, rows);
 
-    // Simulation Loop
-    for (int iter = 0; iter < MAX_ITERATIONS; ++iter) {
-        // Exchange border data with neighboring processes
+    // Gather the initial temperature distribution at the root process
+    std::vector<double> gathered_grid;
+    if (rank == 0) {
+        gathered_grid.resize(rows * cols);
+    }
+    // Convert local grid to a single vector for MPI communication
+    std::vector<double> local_grid_linear(rows_per_rank * cols);
+    for (int i = 0; i < rows_per_rank; ++i) {
+        std::copy(local_grid[i].begin(), local_grid[i].end(), local_grid_linear.begin() + i * cols);
+    }
+    MPI_Gather(local_grid_linear.data(), rows_per_rank * cols, MPI_DOUBLE, gathered_grid.data(), rows_per_rank * cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+    // Root process writes the initial grid to a file
+    if (rank == 0) {
+        std::ofstream initial_grid_file("initial_grid.txt");
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                initial_grid_file << gathered_grid[i * cols + j] << ' ';
+            }
+            initial_grid_file << '\n';
+        }
+        initial_grid_file.close();
+    }
+
+    std::vector<double> top_buffer(cols, 0.0), bottom_buffer(cols, 0.0);
+    MPI_Request top_request, bottom_request;
+    double start_time = MPI_Wtime();
+
+    // Simulation loop
+    for (int step = 0; step < time_steps; ++step) {
+        // Perform non-blocking sends and receives for the top and bottom rows
         if (rank > 0) {
-            MPI_Send(&localTemperature[0][0], GRID_SIZE_Y, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD);
+            MPI_Isend(local_grid[0].data(), cols, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD, &top_request);
+            MPI_Irecv(top_buffer.data(), cols, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD, &top_request);
         }
         if (rank < size - 1) {
-            MPI_Recv(&localTemperature[rows_per_process - 1][0], GRID_SIZE_Y, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Isend(local_grid[rows_per_rank - 1].data(), cols, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD, &bottom_request);
+            MPI_Irecv(bottom_buffer.data(), cols, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD, &bottom_request);
         }
 
-        // Update local grid using FTCS scheme
-        updateGrid(localTemperature, rows_per_process, GRID_SIZE_Y);
+        // Update the local grid
+        update_temperature(local_grid, top_buffer, bottom_buffer, rows_per_rank);
 
-        // Exchange border data again, but this time in the opposite direction
-        if (rank < size - 1) {
-            MPI_Send(&localTemperature[rows_per_process - 1][0], GRID_SIZE_Y, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD);
-        }
+        // Wait for non-blocking communications to complete
         if (rank > 0) {
-            MPI_Recv(&localTemperature[0][0], GRID_SIZE_Y, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Wait(&top_request, MPI_STATUS_IGNORE);
         }
-
-        if (iter % 1000 == 0 && rank == 0) {  // Display every 1000 iterations for rank 0
-          displayGrid(localTemperature, rows_per_process, GRID_SIZE_Y);
+        if (rank < size - 1) {
+            MPI_Wait(&bottom_request, MPI_STATUS_IGNORE);
         }
     }
 
-    double endTime = MPI_Wtime();  // End time measurement
-    double elapsedTime = endTime - startTime;  // Compute elapsed time
-
-    // Gather computed grid data back to the root process
-    MPI_Gather(&localTemperature[0][0], rows_per_process * GRID_SIZE_Y, MPI_DOUBLE,
-               &globalTemperature[0][0], rows_per_process * GRID_SIZE_Y, MPI_DOUBLE,
-               0, MPI_COMM_WORLD);
-
+    double end_time = MPI_Wtime();
     if (rank == 0) {
-        cout << "Total time taken: " << elapsedTime << " seconds." << endl;
-        displayGrid(globalTemperature, GRID_SIZE_X, GRID_SIZE_Y);  // Display the final grid state
+        std::cout << "Simulation took " << (end_time - start_time) << " seconds." << std::endl;
     }
 
-    // Finalize MPI
+    // Gather the final temperature distribution at the root rank
+    std::vector<double> final_grid;
+    if (rank == 0) {
+        final_grid.resize(rows * cols);
+    }
+    MPI_Gather(local_grid.data()->data(), rows_per_rank * cols, MPI_DOUBLE, final_grid.data(), rows_per_rank * cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+    // Output the final grid to a file or the terminal
+    if (rank == 0) {
+        std::ofstream out_file("final_grid.txt");
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                out_file << final_grid[i * cols + j] << ' ';
+            }
+            out_file << '\n';
+        }
+        out_file.close();
+    }
+
     MPI_Finalize();
-
     return 0;
 }
