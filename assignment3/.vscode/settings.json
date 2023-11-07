@@ -58,7 +58,6 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "C_Cpp.default.compilerPath": "/usr/bin/clang++",
   "files.associations": {
-    "algorithm": "cpp",
     "array": "cpp",
     "atomic": "cpp",
     "bit": "cpp",
@@ -73,7 +72,6 @@
     "cstdint": "cpp",
     "cstdio": "cpp",
     "cstdlib": "cpp",
-    "cstring": "cpp",
     "ctime": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
@@ -83,6 +81,7 @@
     "unordered_map": "cpp",
     "vector": "cpp",
     "exception": "cpp",
+    "algorithm": "cpp",
     "functional": "cpp",
     "iterator": "cpp",
     "memory": "cpp",

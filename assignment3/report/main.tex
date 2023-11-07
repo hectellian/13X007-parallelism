@@ -70,68 +70,33 @@
         \subsection{Analysis of Results}
         The results indicate a trend consistent with Amdahl's Law; the speedup due to parallelization is substantial but tends to level off as the number of processors increases. This is particularly evident in the case of smaller domain sizes, where the communication overhead can offset the computational speedup.
 
-        For example, the solver's execution time for a 64x64 domain decreased from 1.25073 seconds with one processor to 0.545042 seconds with eight processors. Similarly, for a 128x128 domain, the time reduced from 4.77483 seconds to 1.18351 seconds, and for a 256x256 domain, from 25.1451 seconds to 3.91991 seconds with the same increase in processors.
+        For example, the solver's execution time for a 64x64 domain decreased from 1.25073 seconds with one processor to 0.545042 seconds with eight processors. Similarly, for a 128x128 domain, the time reduced from 4.77483 seconds to 1.18351 seconds, and for a 128x128 domain, from 25.1451 seconds to 3.91991 seconds with the same increase in processors.
 
         We'll talk more about the implications of these results in the discussion section.
 
-        \subsection{Case Study: 8x8 Grid}
-        A detailed case study of the 8x8 grid provides a clear example of the solver's functionality. The initial and final temperature distributions demonstrate the changes over the course of the simulation.
+        \subsection{Case Study: 128x128 Grid}
+        A detailed case study of the 128x128 grid provides a clear example of the solver's functionality. The initial and final temperature distributions demonstrate the changes over the course of the simulation.
+        This was simulated using a thermal diffusivity of 1e-4.
 
         \subsection{Initial Heat Distribution}
     The initial grid represents the temperature distribution at the beginning of the simulation, where boundary conditions are set to 1 (representing a fixed temperature) and the interior points are initialized to 0.
 
-    \begin{table}[ht]
+    \begin{figure}[ht]
         \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|}
-            \hline
-            1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-            \hline
-            1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-            \hline
-        \end{tabular}
-        \caption{Initial temperature distribution on an 8x8 grid.}
-        \label{table:initial_grid}
-    \end{table}
+        \includegraphics[width=0.4\textwidth]{img/initial_grid.png}
+        \caption{Initial temperature distribution on an 128x128 grid.}
+        \label{fig:initial_grid}
+    \end{figure}
 
     \subsection{Final Heat Distribution}
     The final grid shows the temperature distribution after the simulation. The heat has diffused from the boundaries into the interior according to the 2D heat equation.
 
-    \begin{table}[ht]
+    \begin{figure}[ht]
         \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|}
-            \hline
-            1 & 0.513 & 0.333 & 0.269 & 0.269 & 0.333 & 0.513 & 1 \\
-            \hline
-            1 & 0 & 1 & 0.718 & 0.549 & 0.474 & 0.474 & 0.549 \\
-            \hline
-            1 & 0.809 & 0.673 & 0.605 & 0.605 & 0.673 & 0.809 & 1 \\
-            \hline
-            1 & 0 & 1 & 0.846 & 0.728 & 0.667 & 0.667 & 0.728 \\
-            \hline
-            1 & 0.846 & 0.728 & 0.667 & 0.667 & 0.728 & 0.846 & 1 \\
-            \hline
-            1 & 0 & 1 & 0.809 & 0.673 & 0.605 & 0.605 & 0.673 \\
-            \hline
-            1 & 0.718 & 0.549 & 0.474 & 0.474 & 0.549 & 0.718 & 1 \\
-            \hline
-            1 & 0.513 & 0.333 & 0.269 & 0.269 & 0.333 & 0.513 & 1 \\
-            \hline
-        \end{tabular}
-        \caption{Final temperature distribution on an 8x8 grid after simulation.}
-        \label{table:final_grid}
-    \end{table}
+        \includegraphics[width=0.4\textwidth]{img/final_grid.png}
+        \caption{Final temperature distribution on an 128x128 grid.}
+        \label{fig:final_grid}
+    \end{figure}
 
     \section{Discussion}
     The discussion assesses the results' implications, evaluating the benefits of parallelization and its constraints. The insights gained from this study illustrate the balance between computational speedup and parallel overhead, shaping the strategies for future parallel computing applications.
@@ -181,12 +146,10 @@
         The terminal output for this command would resemble:
         
         \begin{verbatim}
-        Output written to initial_128x128_grid.txt
         Simulation took 1.61275 seconds.
-        Output written to final_128x128_grid.txt
         \end{verbatim}
 
-        The results will be output to text files named \texttt{initial\_[domain\_size]x[domain\_size]\_grid.txt} and \texttt{final\_[domain\_size]x[domain\_size]\_grid.txt}, containing the initial and final temperature distributions, respectively.
+        The results will be output to a bmp image named \texttt{T\_1000000.bmp}, containing the final temperature distributions.
 
     \section{Conclusion}
         The report concludes with an overview of the findings, emphasizing the significant performance gains achieved through parallelization. The importance of optimizing both the computational aspects and the communication strategies is highlighted as key to further performance improvements.

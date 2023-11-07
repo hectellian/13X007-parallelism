@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1699187322 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main.tex" "main.pdf" "main" 1699187323
+["pdflatex"] 1699384583 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main.tex" "main.pdf" "main" 1699384584
   "/etc/texmf/web2c/texmf.cnf" 1697280618 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main.tex" 1699187322 13672 604fe550fa5123f7d3cc7630ba07ce56 ""
+  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main.tex" 1699384583 12278 0f5801568c5159332203e10fdacbe7ed ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc" 1576101225 3075 0696ceafc85b8352a913efb9ba64bc17 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/google/roboto/Roboto-Bold-lf-t1--base.tfm" 1576101225 1840 1834297dad21c65d0f959ffe1bfe4fbd ""
@@ -97,11 +97,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697371243 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1697371258 2800007 c3765f9169c6b879828b37cf1804f5d0 ""
+  "img/final_grid.png" 1699384342 1356 bc7f36ec51148eb3822569120163d226 ""
+  "img/initial_grid.png" 1699384345 312 a0c90c0d7308717e31cb8af1f0f1950b ""
   "img/logo-unige.png" 1699183986 110559 bee65c350753666ab19a83ccc008ed56 ""
   "img/performance.png" 1699184014 126294 7bf01d0edf60592e5a8960e5443616dd ""
-  "main.aux" 1699187323 3248 e763168fbd3c9dc984640d0df3196e8e "pdflatex"
-  "main.tex" 1699187322 13672 604fe550fa5123f7d3cc7630ba07ce56 ""
-  "main.toc" 1699187323 1551 0a4fa8b7b7655f0430a8e14fa8470a61 "pdflatex"
+  "main.aux" 1699384584 3241 2b04b2862a97c007aac2258b4d662955 "pdflatex"
+  "main.tex" 1699384583 12278 0f5801568c5159332203e10fdacbe7ed ""
+  "main.toc" 1699384584 1555 57cefcd5db8b62be4d749b60bdaed27e "pdflatex"
   "structure.tex" 1699183986 2680 b0889cfab5d5fdbb9ff9c31e3d146913 ""
   (generated)
   "main.aux"
