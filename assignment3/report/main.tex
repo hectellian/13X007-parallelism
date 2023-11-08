@@ -59,11 +59,11 @@
         Execution times were recorded for domain sizes 64x64, 128x128, and 256x256 with varying processor counts. A general reduction in computation time was observed with the increase in processor count.
 
         \subsection{Graphical Representation}
-        The data were plotted using line graphs, which clearly show the trend of decreasing execution time with an increasing number of processors. These graphs provide an immediate visual representation of the performance gains achieved through parallelization.
+        The data were plotted using line graphs, which clearly show the trend of decreasing execution time with an increasing number of processors. These graphs provide an immediate visual representation of the performance gains achieved through parallelization. This was made with a ver large number of iteration ($10^5$) as less than this would have been too fast therefore the communication between the processors would have been too important, because there would have been too many communications for a small amount of computation.
 
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.75\textwidth]{img/performance.png}
+        \includegraphics[width=0.8\textwidth]{img/performance.png}
         \caption{Execution Time vs. Number of Processors for Different Domain Sizes}\label{fig:execution_time}
     \end{figure}
 
@@ -74,27 +74,34 @@
 
         We'll talk more about the implications of these results in the discussion section.
 
-        \subsection{Case Study: 128x128 Grid}
-        A detailed case study of the 128x128 grid provides a clear example of the solver's functionality. The initial and final temperature distributions demonstrate the changes over the course of the simulation.
-        This was simulated using a thermal diffusivity of 1e-4.
+        \subsection{Case Study: 256x256 Grid}
+        A detailed case study of the 256x256 grid provides a clear example of the solver's functionality.
 
-        \subsection{Initial Heat Distribution}
+        \subsubsection{Initial Heat Distribution}
     The initial grid represents the temperature distribution at the beginning of the simulation, where boundary conditions are set to 1 (representing a fixed temperature) and the interior points are initialized to 0.
 
     \begin{figure}[ht]
         \centering
         \includegraphics[width=0.4\textwidth]{img/initial_grid.png}
-        \caption{Initial temperature distribution on an 128x128 grid.}
+        \caption{Initial temperature distribution on an 256x256 grid.}
         \label{fig:initial_grid}
     \end{figure}
 
-    \subsection{Final Heat Distribution}
-    The final grid shows the temperature distribution after the simulation. The heat has diffused from the boundaries into the interior according to the 2D heat equation.
+    \subsubsection{Evolution of Heat Distribution}
+    Here you'll be able to see the evolution with the number of iteration of the heat dispertion. The heat has diffused from the boundaries into the interior according to the 2D heat equation.
 
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.4\textwidth]{img/final_grid.png}
-        \caption{Final temperature distribution on an 128x128 grid.}
+        \includegraphics[width=0.20\textwidth]{img/T_0015.png}
+        \includegraphics[width=0.20\textwidth]{img/T_0150.png}
+        \includegraphics[width=0.20\textwidth]{img/T_0250.png}
+        \includegraphics[width=0.20\textwidth]{img/T_0500.png}
+        \\[\smallskipamount]
+        \includegraphics[width=0.20\textwidth]{img/T_1000.png}
+        \includegraphics[width=0.20\textwidth]{img/T_5000.png}
+        \includegraphics[width=0.20\textwidth]{img/T_10000.png}
+        \includegraphics[width=0.20\textwidth]{img/T_15000.png}
+        \caption{Temperature evolution on an 256x256 grid.}
         \label{fig:final_grid}
     \end{figure}
 
@@ -134,13 +141,13 @@
         The solver can be executed using MPI with the following command pattern:
         
         \begin{verbatim}
-        mpirun -np [number_of_processors] ./build/heat [domain_size]
+mpirun -np [number_of_processors] ./build/heat [domain_size] [number_of_iterations]
         \end{verbatim}
 
-        For example, to run the solver on a 128x128 domain using 4 processors, the command would be:
+    For example, to run the solver on a 128x128 domain using 4 processors, the command would be:
         
         \begin{verbatim}
-        mpirun -np 4 ./build/heat 128
+        mpirun -np 4 ./build/heat 128 1500
         \end{verbatim}
 
         The terminal output for this command would resemble:
@@ -149,7 +156,7 @@
         Simulation took 1.61275 seconds.
         \end{verbatim}
 
-        The results will be output to a bmp image named \texttt{T\_1000000.bmp}, containing the final temperature distributions.
+        The results will be output to a bmp image named \texttt{T\_[number\_of\_iterations].bmp}, containing the final temperature distributions.
 
     \section{Conclusion}
         The report concludes with an overview of the findings, emphasizing the significant performance gains achieved through parallelization. The importance of optimizing both the computational aspects and the communication strategies is highlighted as key to further performance improvements.

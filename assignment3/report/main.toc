@@ -9,10 +9,10 @@
 \contentsline {subsection}{\numberline {3.1}Execution Time Measurements}{4}{}%
 \contentsline {subsection}{\numberline {3.2}Graphical Representation}{4}{}%
 \contentsline {subsection}{\numberline {3.3}Analysis of Results}{4}{}%
-\contentsline {subsection}{\numberline {3.4}Case Study: 128x128 Grid}{4}{}%
-\contentsline {subsection}{\numberline {3.5}Initial Heat Distribution}{5}{}%
-\contentsline {subsection}{\numberline {3.6}Final Heat Distribution}{5}{}%
-\contentsline {section}{\numberline {4}Discussion}{5}{}%
+\contentsline {subsection}{\numberline {3.4}Case Study: 256x256 Grid}{5}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}Initial Heat Distribution}{5}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}Evolution of Heat Distribution}{5}{}%
+\contentsline {section}{\numberline {4}Discussion}{6}{}%
 \contentsline {subsection}{\numberline {4.1}Performance Gains}{6}{}%
 \contentsline {subsection}{\numberline {4.2}Challenges in Parallelization}{6}{}%
 \contentsline {subsection}{\numberline {4.3}Implications for Scalability}{6}{}%
