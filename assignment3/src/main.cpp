@@ -83,7 +83,6 @@ void update_temperature(std::vector<std::vector<double>>& grid,
   grid.swap(new_grid);
 }
 
-// Main program
 int main(int argc, char* argv[]) {
     MPI_Init(&argc, &argv);
     int rank, size;
@@ -160,6 +159,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Simulation took " << (end_time - start_time) << " seconds." << std::endl;
     }
 
+    // Convert the local grid to a 1D array for MPI_Gather
     std::vector<double> local_grid_linear(rows_per_rank * cols);
     for (int i = 0; i < rows_per_rank; ++i) {
         std::copy(local_grid[i].begin(), local_grid[i].end(), local_grid_linear.begin() + i * cols);
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
 
     MPI_Gather(local_grid_linear.data(), rows_per_rank * cols, MPI_DOUBLE, final_grid.data(), rows_per_rank * cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-    // Convert the final 1D grid to a 2D grid and save as BMP
+    // Convert the final 1D grid to a 2D grid to save as BMP
     if (rank == 0) {
         std::vector<std::vector<double>> final_2d_grid(rows, std::vector<double>(cols));
         for (int i = 0; i < rows; ++i) {
