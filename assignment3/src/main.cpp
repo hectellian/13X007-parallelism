@@ -41,7 +41,6 @@ void update_temperature(std::vector<std::vector<double>>& grid,
                         std::vector<double>& top_buffer,
                         std::vector<double>& bottom_buffer,
                         int rank, int rows_per_rank, int total_rows) {
-  // New parameters as provided
   double hx = 1.0 / total_rows; 
   double hy = 1.0 / total_rows; 
   double C = 1.0; 
