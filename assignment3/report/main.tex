@@ -40,17 +40,58 @@
         \subsection{Significance of Parallel Computing}
         Traditional serial computation methods become impractical as the complexity and size of the domain increase. Parallel computing addresses this by splitting the task among multiple processors, leading to substantial reductions in computation time and enabling the solution of larger and more complex problems.
 
-    \section{Methodology}
-        This section outlines the computational approach used to solve the 2D heat equation, detailing the numerical method employed and the parallelization technique.
+        \section{Methodology}
 
-        \subsection{Finite Difference Method}
-        The Finite Difference Method (FDM) approximates the continuous differential equations of the heat equation with a discretized grid. The grid spacing and time step size were chosen according to the stability criteria of the FTCS scheme. Boundary conditions were set to maintain a constant temperature at the edges of the domain, representing a typical physical scenario.
-
+        This section elaborates on the computational strategy adopted for solving the 2D heat equation. It details the numerical method employed and the approach to parallelizing the computation.
+        
+        \subsection{Finite Difference Method (FDM)}
+        
+        The core numerical method used is the Finite Difference Method (FDM), which approximates the continuous differential equations of the heat equation with a discretized grid. The grid spacing ($\Delta x$ and $\Delta y$) and the time step size ($\Delta t$) were chosen in accordance with the stability criteria of the Forward-Time Central-Space (FTCS) scheme. This approach involves updating each grid point's temperature based on its current temperature and the temperatures of its immediate neighbors.
+        
+        In the implementation, a two-dimensional grid of size \texttt{rows} $\times$ \texttt{cols} is used, represented by \texttt{kt::vector2D<double>}. The update formula for each interior grid point $T_{i,j}$ at a new time step is given by:
+        
+        \begin{verbatim}
+new_grid[i][j] = weightx * (grid[i - 1][j] + grid[i + 1][j] + grid[i][j] * diagx) +
+    weighty * (grid[i][j - 1] + grid[i][j + 1] + grid[i][j] * diagy);
+        \end{verbatim}
+        
+        where \texttt{weightx}, \texttt{weighty}, \texttt{diagx}, and \texttt{diagy} are coefficients derived from the grid spacing and time step size, and \texttt{new\_grid} stores the temperatures for the next time step.
+        
+        Boundary conditions are set to maintain a constant temperature at the edges of the domain, mimicking a typical physical scenario. The temperature at the boundaries is set to $1.0$, representing a fixed heat source:
+        
+        \begin{verbatim}
+        if (rank == 0) {
+            for (int j = 0; j < cols; ++j) {
+                grid[0][j] = 1.0; // Top edge
+            }
+        }
+        \end{verbatim}
+        
+        ... [similar code for other edges] ...
+        
         \subsection{Parallelization Strategy}
-        The domain was decomposed into subdomains assigned to different processors. The MPI framework facilitated communication between processors, allowing for efficient data exchange necessary for boundary condition calculations and iterative updates.
-
+        
+        To efficiently handle large-scale computations, the domain was decomposed into smaller subdomains, each assigned to a different processor. The MPI (Message Passing Interface) framework was used to facilitate communication between these processors. This approach allows for efficient data exchange necessary for calculating boundary conditions and iterative updates.
+        
+        The domain decomposition is realized by dividing the grid into horizontal slices, with each MPI process handling one slice. Non-blocking communication operations (\texttt{MPI\_Isend} and \texttt{MPI\_Irecv}) are used to exchange boundary row data between adjacent processes:
+        
+        \begin{verbatim}
+if (rank > 0) {
+    MPI_Isend(&local_grid[0][0], cols, MPI_DOUBLE, rank - 1, 0, 
+        MPI_COMM_WORLD, &top_request);
+    MPI_Irecv(top_buffer.data(), cols, MPI_DOUBLE, rank - 1, 1, 
+        MPI_COMM_WORLD, &top_request);
+}
+... [Similar code for sending and receiving the bottom buffer] ...
+        \end{verbatim}
+        
+        
+        This ensures that each process has the necessary data to update the temperature values at its boundaries, thereby maintaining the continuity of the heat distribution across the entire domain.
+        
         \subsection{Computational Setup}
-        The computations were performed on a computer equipped with a Ryzen 9 3900X CPU 12 Core Processor.
+        
+        The computations were carried out on a high-performance computing setup, consisting of a Ryzen 9 3900X CPU 12 Core Processor. This setup provided the computational power required to handle the intensive calculations involved in the FDM and parallel processing.
+        
 
     \section{Results}
         The following subsections present the empirical data gathered from the simulations, highlighting the performance improvements and providing a detailed analysis of the results.
