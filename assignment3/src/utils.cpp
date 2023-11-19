@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "vector.h"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -35,7 +36,7 @@ void save_grid(const std::vector<double> &grid, int rows, int cols, int rank,
   std::cout << "Output written to " << filename << std::endl;
 }
 
-void write_to_bmp(int N, std::vector<std::vector<double>>& data, int iter, double minval, double maxval)
+void write_to_bmp(int N, kt::vector2D<double>& data, int iter, double minval, double maxval)
 {
     unsigned char bmpfileheader[14] = {'B','M',0,0,0,0,0,0,0,0,54,0,0,0};
     unsigned char bmpinfoheader[40] = { 40, 0,  0, 0,

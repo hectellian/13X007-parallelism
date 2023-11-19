@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <mpi.h>
 #include "utils.h"
+#include "vector.h"
 
 // Define the domain size and simulation parameters
 int rows = 8;
@@ -11,33 +12,31 @@ int cols = 8;
 int time_steps = 1e5; // Number of iter
 
 // Function to initialize the temperature grid
-void initialize_temperature(std::vector<std::vector<double>> &grid, int rank,
+void initialize_temperature(kt::vector2D<double> &grid, int rank,
                             int rows_per_rank, int total_rows) {
-  // The 'total_rows' argument represents the total number of rows in the global grid.
-  for (int i = 0; i < rows_per_rank; ++i) {
-    for (int j = 0; j < cols; ++j) {
-      // Set the top edge of the first rank to 1
-      if (i == 0 && rank == 0) {
-        grid[i][j] = 1.0;
-      } 
-      // Set the bottom edge of the last rank to 1
-      else if (i == rows_per_rank - 1 && rank == (total_rows / rows_per_rank) - 1) {
-        grid[i][j] = 1.0;
-      }
-      // Set the left and right edges to 1 for all ranks
-      else if (j == 0 || j == cols - 1) {
-        grid[i][j] = 1.0;
-      } 
-      // Interior points are set to 0
-      else {
-        grid[i][j] = 0.0;
-      }
+    // Set the top edge of the first rank to 1
+    if (rank == 0) {
+        for (int j = 0; j < cols; ++j) {
+            grid[0][j] = 1.0;
+        }
     }
-  }
+
+    // Set the bottom edge of the last rank to 1
+    if (rank == (total_rows / rows_per_rank) - 1) {
+        for (int j = 0; j < cols; ++j) {
+            grid[rows_per_rank - 1][j] = 1.0;
+        }
+    }
+
+    // Set the left and right edges to 1 for all ranks
+    for (int i = 0; i < rows_per_rank; ++i) {
+        grid[i][0] = 1.0;       // Left edge
+        grid[i][cols - 1] = 1.0; // Right edge
+    }
 }
 
 // Function to update the temperature grid using the FTCS scheme
-void update_temperature(std::vector<std::vector<double>>& grid,
+void update_temperature(kt::vector2D<double>& grid,
                         std::vector<double>& top_buffer,
                         std::vector<double>& bottom_buffer,
                         int rank, int rows_per_rank, int total_rows) {
@@ -51,7 +50,7 @@ void update_temperature(std::vector<std::vector<double>>& grid,
   double weightx = C * dt / (hx * hx);
   double weighty = C * dt / (hy * hy);
 
-  std::vector<std::vector<double>> new_grid = grid; // This will store the new values
+  kt::vector2D<double> new_grid = grid; // This will store the new values
 
   // Update interior cells
   for (int i = 1; i < rows_per_rank - 1; ++i) {
@@ -80,7 +79,7 @@ void update_temperature(std::vector<std::vector<double>>& grid,
   }
 
   // Swap the new grid with the old grid to prepare for the next iteration
-  grid.swap(new_grid);
+  grid = new_grid;
 }
 
 int main(int argc, char* argv[]) {
@@ -119,7 +118,7 @@ int main(int argc, char* argv[]) {
     }
 
     const int rows_per_rank = rows / size;
-    std::vector<std::vector<double>> local_grid(rows_per_rank, std::vector<double>(cols, 0.0));
+    kt::vector2D<double> local_grid(rows_per_rank, cols);
 
     // Initialize the local grid with initial temperature values
     initialize_temperature(local_grid, rank, rows_per_rank, rows);
@@ -134,11 +133,11 @@ int main(int argc, char* argv[]) {
     for (int step = 0; step < time_steps; ++step) {
         // Perform non-blocking sends and receives for the top and bottom rows
         if (rank > 0) {
-            MPI_Isend(local_grid[0].data(), cols, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD, &top_request);
+            MPI_Isend(&local_grid[0][0], cols, MPI_DOUBLE, rank - 1, 0, MPI_COMM_WORLD, &top_request);
             MPI_Irecv(top_buffer.data(), cols, MPI_DOUBLE, rank - 1, 1, MPI_COMM_WORLD, &top_request);
         }
         if (rank < size - 1) {
-            MPI_Isend(local_grid[rows_per_rank - 1].data(), cols, MPI_DOUBLE, rank + 1, 1, MPI_COMM_WORLD, &bottom_request);
+            MPI_Isend(&local_grid[rows_per_rank - 1][0], cols, MPI_DOUBLE, rank + 1, 1, MPI_COMM_WORLD, &bottom_request);
             MPI_Irecv(bottom_buffer.data(), cols, MPI_DOUBLE, rank + 1, 0, MPI_COMM_WORLD, &bottom_request);
         }
 
@@ -159,30 +158,14 @@ int main(int argc, char* argv[]) {
         std::cout << "Simulation took " << (end_time - start_time) << " seconds." << std::endl;
     }
 
-    // Convert the local grid to a 1D array for MPI_Gather
-    std::vector<double> local_grid_linear(rows_per_rank * cols);
-    for (int i = 0; i < rows_per_rank; ++i) {
-        std::copy(local_grid[i].begin(), local_grid[i].end(), local_grid_linear.begin() + i * cols);
-    }
-
     // Gather the final temperature distribution at the root rank
-    std::vector<double> final_grid;
-    if (rank == 0) {
-        final_grid.resize(rows * cols);
-    }
+    kt::vector2D<double> final_grid(rows, cols);
 
-    MPI_Gather(local_grid_linear.data(), rows_per_rank * cols, MPI_DOUBLE, final_grid.data(), rows_per_rank * cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Gather(local_grid.data(), rows_per_rank * cols, MPI_DOUBLE, final_grid.data(), rows_per_rank * cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     // Convert the final 1D grid to a 2D grid to save as BMP
     if (rank == 0) {
-        std::vector<std::vector<double>> final_2d_grid(rows, std::vector<double>(cols));
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                final_2d_grid[i][j] = final_grid[i * cols + j];
-            }
-        }
-        
-        write_to_bmp(rows, final_2d_grid, time_steps, 0, 1);
+        write_to_bmp(rows, final_grid, time_steps, 0, 1);
     }
 
     MPI_Finalize();
