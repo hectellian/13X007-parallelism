@@ -72,20 +72,41 @@
     \subsection{Output Analysis}
     The output of the program with different thread counts is as follows:
     \begin{verbatim}
-    Threads: 2, Time: 0.0964905 seconds, pi: 3.14159
-    Threads: 4, Time: 0.0670324 seconds, pi: 3.14159
-    ...
-    Threads: 256, Time: 0.0422394 seconds, pi: 3.14159
+    Threads: 2, Time taken: 0.0596318 seconds
+    Approximation of Pi with 2 threads: 3.14159
+    Threads: 4, Time taken: 0.030148 seconds
+    Approximation of Pi with 4 threads: 3.14159
+    Threads: 8, Time taken: 0.0222797 seconds
+    Approximation of Pi with 8 threads: 3.14159
+    Threads: 16, Time taken: 0.0156268 seconds
+    Approximation of Pi with 16 threads: 3.14159
+    Threads: 32, Time taken: 0.013509 seconds
+    Approximation of Pi with 32 threads: 3.14159
+    Threads: 64, Time taken: 0.0139896 seconds
+    Approximation of Pi with 64 threads: 3.14159
+    Threads: 128, Time taken: 0.0153812 seconds
+    Approximation of Pi with 128 threads: 3.14159
+    Threads: 256, Time taken: 0.0169438 seconds
+    Approximation of Pi with 256 threads: 3.14159
     \end{verbatim}
     These results indicate that the parallelized implementation efficiently reduces computation time, especially for lower thread counts. However, beyond a certain number of threads, the improvement in performance becomes less significant.
 
+    % add figure of execution times
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/exectime.png}
+        \label{fig:execution_times}
+    \end{figure}
+
+    As the number of processors increases in tasks like Pi approximation, execution time initially drops due to parallelization, where tasks are divided among processors for simultaneous execution. This leads to faster execution when scaling from a single to a moderate number of processors. However, beyond an optimal point, the benefits diminish due to increased overhead from managing more threads. This results in a plateau or slight increase in execution time, demonstrating a balance between parallel processing advantages and the complexities of managing more processors.
+
     \section{Challenges and Limitations}
-    The implementation, while effective, faces certain challenges:
-    \begin{itemize}
-        \item \textbf{Scalability}: The diminishing returns in performance improvement with higher thread counts highlight the scalability limitations due to overheads in thread management and synchronization.
-        \item \textbf{Accuracy}: The accuracy of the Riemann sum approach depends on the number of rectangles; more rectangles generally mean better accuracy but at the cost of increased computation time.
-        \item \textbf{Hardware Constraints}: The performance also depends on the hardware capabilities, particularly the number of available processor cores.
-    \end{itemize}
+The implementation, while effective, faces certain challenges:
+\begin{itemize}
+\item \textbf{Scalability}: The diminishing returns in performance improvement with higher thread counts highlight scalability limitations due to overheads in thread management and synchronization. Additionally, the effective distribution of workload (load balancing) becomes increasingly challenging as the number of threads grows, which can lead to inefficiencies and underutilization of resources.
+\item \textbf{Accuracy}: The accuracy of the Riemann sum approach depends on the number of rectangles; more rectangles mean better accuracy but at the cost of increased computation time.
+\item \textbf{Hardware Constraints}: The performance also depends on the hardware capabilities, particularly the number of available processor cores. Additionally, memory constraints can become a bottleneck, especially when dealing with a large number of threads, each requiring its own memory space for computations.
+\end{itemize}
 
     \section{Conclusion}
     This report demonstrates the application of parallel computing in approximating $\pi$ using the Riemann sum method. By employing OpenMP, the program achieves significant improvements in computation time, showcasing the potential of parallel programming in numerical methods. Future work could explore alternative approaches and optimizations to overcome scalability and accuracy limitations.
