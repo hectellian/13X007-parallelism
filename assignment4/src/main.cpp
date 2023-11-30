@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <omp.h>
+#include <cstdlib>
 
 // Function to approximate pi using Riemann sum and OpenMP
 double approximatePiParallel(unsigned long long numRectangles, int numThreads) {
@@ -25,10 +26,19 @@ double approximatePiParallel(unsigned long long numRectangles, int numThreads) {
     return sum * width;
 }
 
-int main() {
-    unsigned long long numRectangles = 1e8; // 10^8 rectangles
+int main(int argc, char **argv) {
+    unsigned long long numRectangles = 1e8; // Default value for rectangles
+    int maxThreads = pow(2, 8); // Default value for max threads
 
-    for (int numThreads = 2; numThreads <= pow(2, 8); numThreads *= 2) {
+    // Parse command-line arguments
+    if (argc > 1) {
+        numRectangles = std::strtoull(argv[1], nullptr, 10);
+    }
+    if (argc > 2) {
+        maxThreads = std::atoi(argv[2]);
+    }
+
+    for (int numThreads = 2; numThreads <= maxThreads; numThreads *= 2) {
         double pi = approximatePiParallel(numRectangles, numThreads);
         std::cout << "Approximation of Pi with " << numThreads << " threads: " << pi << std::endl;
     }
