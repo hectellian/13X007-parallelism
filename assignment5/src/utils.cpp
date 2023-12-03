@@ -9,13 +9,6 @@
 
 using namespace std;
 
-tuple<unsigned char, unsigned char, unsigned char> iteration_to_color(double iteration, double max_iter) {
-    double t = iteration / max_iter;
-    // Linear interpolation between blue (min) and black (max)
-    unsigned char blue = (1.0 - t) * 255;  // Blue fades to black
-    return {0, 0, blue};  // RGB value
-}
-
 void write_to_bmp(int N, kt::vector2D<double>& data, int iter, double minval, double maxval)
 {
     unsigned char bmpfileheader[14] = {'B','M',0,0,0,0,0,0,0,0,54,0,0,0};
@@ -34,18 +27,51 @@ void write_to_bmp(int N, kt::vector2D<double>& data, int iter, double minval, do
 
     vector<unsigned char> img(datasize);
 
-    // Write headers
-    for (int i = 0; i < 14; i++) img[i] = bmpfileheader[i];
-        for (int i = 0; i < 40; i++) img[14 + i] = bmpinfoheader[i];
+    // A linear interpolation function, used to create the color scheme.
+    auto linear = [](double x, double x1, double x2, double y1, double y2)
+       {
+           return ( (y2-y1) * x + x2*y1 - x1*y2 ) / (x2-x1);
+       };
 
-    // Write pixel data
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            auto [r, g, b] = iteration_to_color(data[y][x], iter);
-            int pos = 54 + (x * 3) + (width * 3 + padding) * (height - y - 1);
-            img[pos + 0] = b; // Blue
-            img[pos + 1] = g; // Green
-            img[pos + 2] = r; // Red
+    for(int iX = 0; iX < width; iX++){
+        for(int iY = 0; iY < height; iY++){
+            // Restrain the value to be plotted to [0, 1]
+            double value = ((data[iY][iX] - minval) / (maxval - minval));
+            double r = 0., g = 0., b = 0.;
+            // For good visibility, use a color scheme that goes from black-blue to black-red.
+            if (value <= 1./8.) {
+                r = 0.;
+                g = 0.;
+                b = linear(value, -1./8., 1./8., 0., 1.);
+            }
+            else if (value <= 3./8.) {
+                r = 0.;
+                g = linear(value, 1./8., 3./8., 0., 1.);
+                b = 1.;
+            }
+            else if (value <= 5./8.) {
+                r = linear(value, 3./8., 5./8., 0., 1.);
+                g = 1.;
+                b = linear(value, 3./8., 5./8., 1., 0.);
+            }
+            else if (value <= 7./8.) {
+                r = 1.;
+                g = linear(value, 5./8., 7./8., 1., 0.);
+                b = 0.;
+            }
+            else {
+                r = linear(value, 7./8., 9./8., 1., 0.);
+                g = 0.;
+                b = 0.;
+            }
+
+            r = min(255. * r, 255.);
+            g = min(255. * g, 255.);
+            b = min(255. * b, 255.);
+
+            img[(iX + iY*width)*3 + iY*padding + 2] = (unsigned char)(r);
+            img[(iX + iY*width)*3 + iY*padding + 1] = (unsigned char)(g);
+            img[(iX + iY*width)*3 + iY*padding + 0] = (unsigned char)(b);
         }
     }
 
@@ -78,6 +104,6 @@ void write_to_bmp(int N, kt::vector2D<double>& data, int iter, double minval, do
     f.write((const char*)bmpfileheader, 14);
     f.write((const char*)bmpinfoheader, 40);
 
-    f.write(reinterpret_cast<char*>(&img[0]), filesize);
+    f.write((const char*)&img[0], datasize);
     f.close();
 }
