@@ -1,0 +1,8 @@
+        Execution Time with 1 threads: 0.205807 seconds
+        Fractal image saved as BMP.
+        Execution Time with 2 threads: 0.101268 seconds
+        ...
+        Execution Time with 128 threads: 0.0244127 seconds
+        Fractal image saved as BMP.
+        Execution Time with 256 threads: 0.0308905 seconds
+        Fractal image saved as BMP.
