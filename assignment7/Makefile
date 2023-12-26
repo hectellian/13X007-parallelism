@@ -11,6 +11,7 @@ SRCS := $(shell find $(SRC_DIRS) -name '*.cpp')
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
+# LDFLAGS := -ltbb
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS := $(INC_FLAGS) -MMD -MP
 

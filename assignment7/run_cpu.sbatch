@@ -12,5 +12,5 @@ module load tbb
 
 echo $SLURM_NODELIST
 
-srun make cpu
+make cpu
 srun ./build/heat_cpu
