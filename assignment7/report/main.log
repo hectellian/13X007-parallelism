@@ -1,0 +1,611 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.15)  4 DEC 2023 18:30
+entering extended mode
+ \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main
+(/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment3/report/main.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21> (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (./structure.tex (/usr/share/texlive/texmf-dist/tex/latex/lastpage/lastpage.sty
+Package: lastpage 2021/09/03 v1.2n Refers to last page's name (HMM; JPG)
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+ (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen139
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count193
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count194
+\leftroot@=\count195
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count196
+\DOTSCASE@=\count197
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count198
+\c@MaxMatrixCols=\count199
+\dotsspace@=\muskip16
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
+\tag@help=\toks17
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
+\andhelp@=\toks18
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks19
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+) (/usr/share/texlive/texmf-dist/tex/latex/bussproofs/bussproofs.sty
+Proof Tree (bussproofs) style macros. Version 1.1.
+\theLevel=\count271
+\myMaxLevel=\count272
+\myBoxA=\box52
+\myBoxB=\box53
+\myBoxC=\box54
+\myBoxD=\box55
+\myBoxLL=\box56
+\myBoxRL=\box57
+\thisAboveSkip=\dimen148
+\thisBelowSkip=\dimen149
+\newScoreStart=\dimen150
+\newScoreEnd=\dimen151
+\newCenter=\dimen152
+\displace=\dimen153
+\leftLowerAmt=\dimen154
+\rightLowerAmt=\dimen155
+\scoreHeight=\dimen156
+\scoreDepth=\dimen157
+\htLbox=\dimen158
+\htRbox=\dimen159
+\htRRbox=\dimen160
+\htRRRbox=\dimen161
+\htAbox=\dimen162
+\htCbox=\dimen163
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen164
+\Gin@req@width=\dimen165
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen166
+\lightrulewidth=\dimen167
+\cmidrulewidth=\dimen168
+\belowrulesep=\dimen169
+\belowbottomsep=\dimen170
+\aboverulesep=\dimen171
+\abovetopsep=\dimen172
+\cmidrulesep=\dimen173
+\cmidrulekern=\dimen174
+\defaultaddspace=\dimen175
+\@cmidla=\count273
+\@cmidlb=\count274
+\@aboverulesep=\dimen176
+\@belowrulesep=\dimen177
+\@thisruleclass=\count275
+\@lastruleclass=\count276
+\@thisrulewidth=\dimen178
+) (/usr/share/texlive/texmf-dist/tex/latex/listing/listing.sty
+Package: listing 1999/05/25
+
+Package `listing', V1.2, <1999/05/25>
+\c@listing=\count277
+) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+) (/usr/share/texlive/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+) (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count279
+\lst@gtempboxa=\box58
+\lst@token=\toks22
+\lst@length=\count280
+\lst@currlwidth=\dimen179
+\lst@column=\count281
+\lst@pos=\count282
+\lst@lostspace=\dimen180
+\lst@width=\dimen181
+\lst@newlines=\count283
+\lst@lineno=\count284
+\lst@maxwidth=\dimen182
+ (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count285
+\lst@skipnumbers=\count286
+\lst@framebox=\box59
+) (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks23
+\inpenc@posthook=\toks24
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen183
+\captionmargin@=\dimen184
+\captionwidth=\dimen185
+\caption@tempdima=\dimen186
+\caption@indent=\dimen187
+\caption@parindent=\dimen188
+\caption@hangindent=\dimen189
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count287
+\c@continuedfloat=\count288
+Package caption Info: listings package is loaded.
+) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count289
+\Gm@cntv=\count290
+\c@Gm@tempcnt=\count291
+\Gm@bindingoffset=\dimen190
+\Gm@wd@mp=\dimen191
+\Gm@odd@mp=\dimen192
+\Gm@even@mp=\dimen193
+\Gm@layoutwidth=\dimen194
+\Gm@layoutheight=\dimen195
+\Gm@layouthoffset=\dimen196
+\Gm@layoutvoffset=\dimen197
+\Gm@dimlist=\toks25
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/roboto/roboto.sty
+Package: roboto 2019/12/11 (Bob Tennent) Supports Roboto fonts for all LaTeX engines.
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+) (/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
+ (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks26
+\XKV@tempa@toks=\toks27
+)
+\XKV@depth=\count292
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+
+
+LaTeX Font Warning: Font shape `T1/cmr/l/n' undefined
+(Font)              using `T1/cmr/m/n' instead on input line 112.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/fontaxes/fontaxes.sty
+Package: fontaxes 2020/07/21 v1.0e Font selection axes
+LaTeX Info: Redefining \upshape on input line 29.
+LaTeX Info: Redefining \itshape on input line 31.
+LaTeX Info: Redefining \slshape on input line 33.
+LaTeX Info: Redefining \swshape on input line 35.
+LaTeX Info: Redefining \scshape on input line 37.
+LaTeX Info: Redefining \sscshape on input line 39.
+LaTeX Info: Redefining \ulcshape on input line 41.
+LaTeX Info: Redefining \textsw on input line 47.
+LaTeX Info: Redefining \textssc on input line 48.
+LaTeX Info: Redefining \textulc on input line 49.
+)) (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and footers
+\f@nch@headwidth=\skip52
+\f@nch@O@elh=\skip53
+\f@nch@O@erh=\skip54
+\f@nch@O@olh=\skip55
+\f@nch@O@orh=\skip56
+\f@nch@O@elf=\skip57
+\f@nch@O@erf=\skip58
+\f@nch@O@olf=\skip59
+\f@nch@O@orf=\skip60
+))
+LaTeX Font Info:    Trying to load font information for T1+Roboto-LF on input line 20.
+ (/usr/share/texlive/texmf-dist/tex/latex/roboto/T1Roboto-LF.fd
+File: T1Roboto-LF.fd 2019/12/11 (autoinst) Font definitions for T1/Roboto-LF.
+)
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/n' aliased to
+(Font)              `T1/Roboto-LF/light/n' on input line 20.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+ (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count293
+\l__pdf_internal_box=\box60
+) (./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 20.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count294
+\scratchdimen=\dimen198
+\scratchbox=\box61
+\nofMPsegments=\count295
+\nofMParguments=\count296
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count297
+\MPscratchDim=\dimen199
+\MPnumerator=\count298
+\makeMPintoPDFobject=\count299
+\everyMPtoPDFconversion=\toks29
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+\c@lstlisting=\count300
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=674.33032pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-35.05495pt
+* \headheight=14.0pt
+* \headsep=34.14322pt
+* \topskip=11.0pt
+* \footskip=39.83368pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\c@mv@tabular=\count301
+\c@mv@boldtabular=\count302
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/n' aliased to
+(Font)              `T1/Roboto-LF/light/n' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/n' will be
+(Font)              scaled to size 17.28pt on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
+(Font)              `T1/Roboto-LF/bold/n' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
+(Font)              scaled to size 17.28pt on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/n' aliased to
+(Font)              `T1/Roboto-LF/light/n' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/n' will be
+(Font)              scaled to size 10.0pt on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/n' aliased to
+(Font)              `T1/Roboto-LF/light/n' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/n' will be
+(Font)              scaled to size 12.0pt on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/it' aliased to
+(Font)              `T1/Roboto-LF/light/it' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/it' will be
+(Font)              scaled to size 12.0pt on input line 22.
+<./img/logo-unige.png, id=1, 1155.31625pt x 851.18pt>
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 22.
+(pdftex.def)             Requested size: 231.05916pt x 170.23297pt.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 22.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 22.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
+(Font)              `T1/Roboto-LF/bold/n' on input line 22.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
+(Font)              scaled to size 12.0pt on input line 22.
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./img/logo-unige.png>]
+LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
+(Font)              `T1/Roboto-LF/bold/n' on input line 26.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
+(Font)              scaled to size 10.0pt on input line 26.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/l/n' aliased to
+(Font)              `T1/Roboto-LF/light/n' on input line 30.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/light/n' will be
+(Font)              scaled to size 14.4pt on input line 30.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
+(Font)              `T1/Roboto-LF/bold/n' on input line 30.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
+(Font)              scaled to size 14.4pt on input line 30.
+ (./main.toc
+LaTeX Font Info:    Font shape `T1/Roboto-LF/b/n' aliased to
+(Font)              `T1/Roboto-LF/bold/n' on input line 1.
+LaTeX Font Info:    Font shape `T1/Roboto-LF/bold/n' will be
+(Font)              scaled to size 10.95pt on input line 1.
+)
+\tf@toc=\write3
+\openout3 = `main.toc'.
+
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 32.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[2]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 51.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+Overfull \hbox (14.40068pt too wide) in paragraph at lines 56--56
+[]\T1/cmtt/m/n/10.95 new_grid[i][j] = weightx * (grid[i - 1][j] + grid[i + 1][j] + grid[i][j] * diagx) +[] 
+ []
+
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 68.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[3]
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 104.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[4]
+<img/performance.png, id=26, 609.2361pt x 397.84634pt>
+File: img/performance.png Graphic file (type png)
+<use img/performance.png>
+Package pdftex.def Info: img/performance.png  used on input line 107.
+(pdftex.def)             Requested size: 364.19667pt x 237.83546pt.
+<img/initial_grid.png, id=27, 128.48pt x 128.48pt>
+File: img/initial_grid.png Graphic file (type png)
+<use img/initial_grid.png>
+Package pdftex.def Info: img/initial_grid.png  used on input line 126.
+(pdftex.def)             Requested size: 182.09486pt x 182.10957pt.
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 129.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[5 <./img/performance.png>]
+<img/T_0015.png, id=33, 256.96pt x 256.96pt>
+File: img/T_0015.png Graphic file (type png)
+<use img/T_0015.png>
+Package pdftex.def Info: img/T_0015.png  used on input line 136.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_0150.png, id=34, 256.96pt x 256.96pt>
+File: img/T_0150.png Graphic file (type png)
+<use img/T_0150.png>
+Package pdftex.def Info: img/T_0150.png  used on input line 137.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_0250.png, id=35, 256.96pt x 256.96pt>
+File: img/T_0250.png Graphic file (type png)
+<use img/T_0250.png>
+Package pdftex.def Info: img/T_0250.png  used on input line 138.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_0500.png, id=36, 256.96pt x 256.96pt>
+File: img/T_0500.png Graphic file (type png)
+<use img/T_0500.png>
+Package pdftex.def Info: img/T_0500.png  used on input line 139.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_1000.png, id=37, 256.96pt x 256.96pt>
+File: img/T_1000.png Graphic file (type png)
+<use img/T_1000.png>
+Package pdftex.def Info: img/T_1000.png  used on input line 141.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_5000.png, id=38, 256.96pt x 256.96pt>
+File: img/T_5000.png Graphic file (type png)
+<use img/T_5000.png>
+Package pdftex.def Info: img/T_5000.png  used on input line 142.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_10000.png, id=39, 256.96pt x 256.96pt>
+File: img/T_10000.png Graphic file (type png)
+<use img/T_10000.png>
+Package pdftex.def Info: img/T_10000.png  used on input line 143.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+<img/T_15000.png, id=40, 256.96pt x 256.96pt>
+File: img/T_15000.png Graphic file (type png)
+<use img/T_15000.png>
+Package pdftex.def Info: img/T_15000.png  used on input line 144.
+(pdftex.def)             Requested size: 91.04742pt x 91.04695pt.
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 154.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[6 <./img/initial_grid.png> <./img/T_0015.png> <./img/T_0150.png> <./img/T_0250.png> <./img/T_0500.png> <./img/T_1000.png> <./img/T_5000.png> <./img/T_10000.png> <./img/T_15000.png>]
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 175.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[7]
+Overfull \hbox (14.40068pt too wide) in paragraph at lines 186--186
+[]\T1/cmtt/m/n/10.95 mpirun -np [number_of_processors] ./build/heat [domain_size] [number_of_iterations][] 
+ []
+
+
+AED: lastpage setting LastPage
+File: ./img/logo-unige.png Graphic file (type png)
+<use ./img/logo-unige.png>
+Package pdftex.def Info: ./img/logo-unige.png  used on input line 205.
+(pdftex.def)             Requested size: 69.31598pt x 51.06859pt.
+
+Package fancyhdr Warning: \footskip is too small (39.83368pt): 
+(fancyhdr)                Make it at least 55.14862pt, for example:
+(fancyhdr)                \setlength{\footskip}{55.14862pt}.
+
+[8]
+
+Package caption Warning: Unused \captionsetup[lstlisting] on input line 24.
+See the caption package documentation for explanation.
+
+(./main.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 8289 strings out of 478287
+ 133000 string characters out of 5849288
+ 426049 words of memory out of 5000000
+ 26349 multiletter control sequences out of 15000+600000
+ 532805 words of font info for 77 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 60i,15n,66p,835b,534s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/roboto/rbto_b5rac7.enc}</usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-Light.pfb></usr/share/texlive/texmf-dist/fonts/type1/google/roboto/Roboto-LightItalic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on main.pdf (8 pages, 579751 bytes).
+PDF statistics:
+ 94 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -56,6 +56,7 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
+  "C_Cpp.default.compilerPath": "/usr/bin/clang++",
   "files.associations": {
     "array": "cpp",
     "atomic": "cpp",
@@ -65,14 +66,12 @@
     "clocale": "cpp",
     "cmath": "cpp",
     "compare": "cpp",
-    "complex": "cpp",
     "concepts": "cpp",
     "cstdarg": "cpp",
     "cstddef": "cpp",
     "cstdint": "cpp",
     "cstdio": "cpp",
     "cstdlib": "cpp",
-    "cstring": "cpp",
     "ctime": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
@@ -108,7 +107,6 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp",
-    "chrono": "cpp"
+    "typeinfo": "cpp"
   }
 }
