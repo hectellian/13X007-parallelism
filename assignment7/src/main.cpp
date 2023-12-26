@@ -11,8 +11,8 @@ using namespace std;
 using namespace std::chrono;
 
 const int max_iter = 1e5;
-const int Nx = 104;  // Adjusted domain size as per PDF
-const int Ny = 104;
+const int Nx = pow(10, 4);
+const int Ny = pow(10, 4);
 
 int main(int argc, char* argv[]) {
     std::vector<double> U(Nx * Ny, 0.0);
@@ -59,11 +59,11 @@ int main(int argc, char* argv[]) {
     }
 
     auto stop = high_resolution_clock::now(); // End timing
-    auto duration = duration_cast<microseconds>(stop - start); // Calculate duration
+    auto duration = duration_cast<seconds>(stop - start);
 
     //Print time
     cout << "Time taken by function: "
-         << duration.count() << " microseconds" << endl;
+         << duration.count() << " seconds" << endl;
 
     write_to_bmp(Nx, U0, max_iter, 0, 1);
 
