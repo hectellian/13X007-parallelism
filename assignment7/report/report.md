@@ -28,12 +28,12 @@ The execution time ratio between CPU and GPU implementations was calculated base
 ## Performance Metrics
 
 1. **On Yggdrasil HPC:**
-   - **CPU (32 cores):** Marked an execution time of 4,139,176 microseconds.
-   - **GPU:** Recorded an execution time of 5,800,258 microseconds.
+   - **CPU (32 cores):** Marked an execution time of 41,391,736 microseconds.
+   - **GPU:** Recorded an execution time of 53,800,258 microseconds.
 
 2. **On Personal Computer:**
-   - **CPU (12 cores):** Notched an execution time of 2,653,190 microseconds.
-   - **GPU (RTX 2070 Super):** Clocking in at 2,652,420 microseconds.
+   - **CPU (12 cores):** Notched an execution time of 27,182,565 microseconds.
+   - **GPU (RTX 2070 Super):** Clocking in at 25,766,272 microseconds.
 
 ## Graphical Representation
 

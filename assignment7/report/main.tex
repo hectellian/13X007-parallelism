@@ -30,13 +30,14 @@
     \hypertarget{introduction}{%
     \section{Introduction}\label{introduction}}
 
-    This comprehensive report delves into the performance analysis of a heat
-    simulation application, deployed on diverse hardware setups. We
-    scrutinize the application on Yggdrasil High-Performance Computing (HPC)
-    with an array of 32 CPUs and a GPU, juxtaposed against its performance
-    on a personal computer equipped with 12 CPU cores and an NVIDIA RTX 2070
-    Super GPU. The crux of this analysis lies in discerning the execution
-    time disparities when run on CPU versus GPU.
+    This report evaluates a heat simulation application, focusing on its
+    parallelization approach and execution on different hardware
+    configurations. The application is designed to solve a 2D heat equation,
+    a typical problem in computational fluid dynamics and heat transfer
+    simulations. The challenge lies in efficiently parallelizing the
+    computations to leverage the capabilities of modern CPUs and GPUs. The
+    parallelization strategy involves using standard C++ libraries and
+    execution policies tailored to each hardware's strengths.
 
     \hypertarget{methodology}{%
     \section{Methodology}\label{methodology}}
@@ -45,172 +46,166 @@
     \subsection{Hardware Employed}\label{hardware-employed}}
 
     \begin{itemize}
-    
+
     \item
-    \textbf{Yggdrasil HPC:} A formidable configuration of 32 CPUs
-    alongside a single GPU.
+      \textbf{Yggdrasil HPC:} Powerful Cluster. For this project we will use 32 Cores and a Single GPU (Unkown CUDA Device). 
+      (We used the \texttt{yggdrasil} cluster instead of the \texttt{baobab} because we had some issues with using the asked values for the \texttt{sbatch} file)
     \item
-    \textbf{Personal Computer:} A setup comprising 12 CPU cores and an RTX
-    2070 Super GPU.
+      \textbf{Personal Computer:} A setup comprising 12 CPU cores and an RTX 2070 Super GPU.
     \end{itemize}
 
-    \hypertarget{software-and-compilation}{%
-    \subsection{Software and Compilation}\label{software-and-compilation}}
+    \hypertarget{implementation-details}{%
+    \subsection{Implementation Details}\label{implementation-details}}
 
     \begin{itemize}
-    
+
     \item
-    The application is compiled using \texttt{g++} for CPU-centric
-    execution, and \texttt{nvcc}, NVIDIA's CUDA compiler, for GPU
-    execution.
+      \textbf{Data Structure:} The 2D domain of the heat simulation is
+      stored in a linear vector, a common technique in high-performance
+      computing to simplify memory access patterns and enhance data
+      locality.
     \item
-    The incorporation of the Threading Building Blocks (TBB) library
-    (\texttt{-ltbb}) hints at the application's potential for
-    multi-threaded operations on the CPU.
+      \textbf{Parallelization Technique:} The application utilizes
+      \texttt{std::for\_each} combined with execution policies from the C++
+      Standard Library. This approach enables efficient parallel processing
+      on multi-core CPUs.
+    \item
+      \textbf{CPU Execution:} On CPUs, the parallel execution policy
+      (\texttt{std::execution::par\_unseq}) is employed, allowing for
+      unsequenced, concurrent execution across multiple threads.
+    \item
+      \textbf{GPU Execution:} The GPU implementation details were not
+      provided in the initial code snippet. However, it typically involves
+      using GPU-specific programming models like CUDA or OpenCL for parallel
+      processing.
     \end{itemize}
+
+    \hypertarget{expanded-implementation-details}{%
+    \subsection{Expanded Implementation Details}\label{expanded-implementation-details}}
+
+    \hypertarget{utilizing-stdfor_each-and-lambda-functions}{%
+    \subsubsection{Utilizing std::for\_each and Lambda Functions}\label{utilizing-stdfor_each-and-lambda-functions}}
+
+    \texttt{std::for\_each} in the C++ Standard Library is employed to apply a function over a range of elements, and is a key part of parallelizing the heat simulation. This function template allows for the specification of an execution policy, enabling parallelization and vectorization.
+
+    Lambda functions in C++ offer a concise way to define operations to be performed on each element. These anonymous functions can capture variables from their enclosing scope, making them suitable for defining complex operations inline within \texttt{std::for\_each}.
+
+    \hypertarget{using-value-references-vs-pointers}{%
+    \subsubsection{Using Value References vs. Pointers}\label{using-value-references-vs-pointers}}
+
+    The choice of using value references over pointers in C++ is significant for safety and efficiency, especially in parallel computing contexts. Value references, indicated by \texttt{\&}, cannot be null and do not require dereferencing, reducing the risk of errors and improving code readability. They are also more efficient in certain scenarios due to reduced indirection.
+
+    \hypertarget{lambda-capture-clause}{%
+    \subsubsection{Lambda Capture Clause}\label{lambda-capture-clause}}
+
+    Lambda capture clauses (\texttt{[\&]}, \texttt{[=]}, etc.) determine how external variables are captured within the lambda function. Capturing by reference allows the lambda to modify external variables and is more efficient for large data structures. Capturing by value, however, is safer in concurrent environments as it avoids potential race conditions by creating a copy of the variables.
 
     \hypertarget{results}{%
     \section{Results}\label{results}}
+
+    \hypertarget{execution-time-ratio}{%
+    \subsection{Execution Time Ratio}\label{execution-time-ratio}}
+
+    The execution time ratio between CPU and GPU implementations was
+    calculated based on the provided data:
+
+    \begin{itemize}
+
+    \item
+      \textbf{Yggdrasil HPC:} CPU (32 cores) execution time was
+      significantly higher than the GPU.
+    \item
+      \textbf{Personal Computer:} The execution times for the CPU (12 cores)
+      and GPU (RTX 2070 Super) were almost identical.
+    \end{itemize}
 
     \hypertarget{performance-metrics}{%
     \subsection{Performance Metrics}\label{performance-metrics}}
 
     \begin{enumerate}
     \def\labelenumi{\arabic{enumi}.}
-    
-    \item
-    \textbf{On Yggdrasil HPC:}
 
-    \begin{itemize}
-    
     \item
-        \textbf{CPU (32 cores):} Marked an execution time of 4,139,176
-        microseconds.
-    \item
-        \textbf{GPU:} Recorded an execution time of 5,800,258 microseconds.
-    \end{itemize}
-    \item
-    \textbf{On Personal Computer:}
+      \textbf{On Yggdrasil HPC:}
 
-    \begin{itemize}
-    
+      \begin{itemize}
+      
+      \item
+        \textbf{CPU (32 cores):} Marked an execution time of 3,121,081 microseconds.
+      \item
+        \textbf{GPU:} Recorded an execution time of 1,832,123 microseconds.
+      \end{itemize}
     \item
-        \textbf{CPU (12 cores):} Notched an execution time of 2,653,190
+      \textbf{On Personal Computer:}
+
+      \begin{itemize}
+      
+      \item
+        \textbf{CPU (12 cores):} Notched an execution time of 27,182,565
         microseconds.
-    \item
-        \textbf{GPU (RTX 2070 Super):} Clocking in at 2,652,420
+      \item
+        \textbf{GPU (RTX 2070 Super):} Clocking in at 25,766,272
         microseconds.
-    \end{itemize}
+      \end{itemize}
     \end{enumerate}
 
-    \newpage
-
     \hypertarget{graphical-representation}{%
-    \section{Graphical Representation}\label{graphical-representation}}
+    \subsection{Graphical Representation}\label{graphical-representation}}
 
     A bar graph vividly depicts the execution times, contrasting the
     performance across the varied hardware configurations.
 
     \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/execution_time.png}
+    \includegraphics[width=0.6\textwidth]{img/execution_time.png}
     \caption{Execution Times}
     \end{figure}
-
-    \hypertarget{analysis-of-code}{%
-    \section{Analysis of Code}\label{analysis-of-code}}
-
-    \hypertarget{cpu-implementation}{%
-    \subsection{CPU Implementation}\label{cpu-implementation}}
-
-    \begin{itemize}
-    
-    \item
-    The code harnesses an array of standard C++ libraries for various
-    functionalities, ranging from input/output operations to mathematical
-    computations and parallel execution capabilities.
-    \item
-    Key constants like \texttt{max\_iter}, \texttt{Nx}, and \texttt{Ny}
-    are pivotal in setting the simulation parameters.
-    \item
-    The vectors \texttt{U} and \texttt{U0} are instrumental in
-    representing the state of the simulation grid.
-    \item
-    The simulation loop leverages \texttt{std::for\_each} combined with
-    \texttt{std::execution::par\_unseq}, optimizing for parallel execution
-    across CPU cores.
-    \item
-    Timing metrics are meticulously captured using
-    \texttt{high\_resolution\_clock}, providing granular insights into
-    execution efficiency.
-    \end{itemize}
-
-    \hypertarget{gpu-implementation}{%
-    \subsection{GPU Implementation}\label{gpu-implementation}}
-
-    \begin{itemize}
-    
-    \item
-    The specifics of GPU optimization and parallel processing remain
-    elusive in the provided code snippet, leaving room for speculation
-    about its execution efficiency and optimization on the GPU front.
-    \end{itemize}
 
     \hypertarget{discussion}{%
     \section{Discussion}\label{discussion}}
 
-    \hypertarget{performance-insights}{%
-    \subsection{Performance Insights}\label{performance-insights}}
+    \hypertarget{performance-analysis}{%
+    \subsection{Performance Analysis}\label{performance-analysis}}
 
     \begin{itemize}
-    
+
     \item
-    \textbf{Personal Computer:} The performance metrics interestingly
-    reveal that the GPU, despite having fewer cores than the CPU, delivers
-    comparable execution efficiency.
+      \textbf{CPU Performance:} The application demonstrates effective
+      multi-threading on the CPU, particularly on the personal computer with
+      fewer cores. The use of \texttt{std::for\_each} with parallel
+      execution policies contributes to this efficiency.
     \item
-    \textbf{Yggdrasil HPC:} The CPU's performance notably eclipses that of
-    the GPU, indicating more effective utilization of resources or
-    possibly superior parallel processing capabilities in this scenario.
+      \textbf{GPU Performance:} The relative underperformance on the GPU in
+      the HPC environment suggests potential challenges, possibly related to
+      memory transfer overhead or kernel optimization.
     \end{itemize}
 
-    \hypertarget{factors-influencing-performance}{%
-    \subsection{Factors Influencing
-    Performance}\label{factors-influencing-performance}}
+    \hypertarget{parallelization-challenges}{%
+    \subsection{Parallelization
+    Challenges}\label{parallelization-challenges}}
 
     \begin{itemize}
-    
-    \item
-    \textbf{CPU Efficiency:} The application's CPU version exhibits
-    impressive multi-threading efficiency, particularly on the HPC's
-    multi-core setup.
-    \item
-    \textbf{GPU Limitations:} GPU performance could be hindered by factors
-    like memory transfer bottlenecks and less optimized kernel execution,
-    particularly evident in the HPC environment.
-    \end{itemize}
 
-    \hypertarget{potential-for-optimization}{%
-    \subsection{Potential for
-    Optimization}\label{potential-for-optimization}}
-
-    \begin{itemize}
-    
     \item
-    Both CPU and GPU implementations present opportunities for
-    enhancement. Optimizing memory access patterns, refining thread
-    management, and fine-tuning kernel execution parameters for GPUs are
-    potential areas for improvement.
+      \textbf{Scalability:} The application's scalability with increasing
+      CPU cores is a point of consideration, particularly on HPC systems.
+    \item
+      \textbf{Optimization:} Tuning the application for optimal performance
+      on GPUs may require addressing specific challenges like memory
+      management and execution efficiency.
     \end{itemize}
 
     \hypertarget{conclusion}{%
     \section{Conclusion}\label{conclusion}}
 
-    The report meticulously evaluates the performance of a heat simulation
-    application across various hardware settings, uncovering valuable
-    insights into its operational dynamics. The findings gleaned from this
-    analysis serve as a cornerstone for strategizing optimizations tailored
-    to high-performance computing applications.
+    The analysis reveals that the heat simulation application performs
+    comparably on CPU and GPU in a personal computer setup but faces
+    challenges in the HPC environment, particularly in GPU optimization. The
+    findings underscore the importance of tailored parallelization
+    strategies and optimization techniques for different hardware
+    configurations in high-performance computing applications. Further
+    exploration and optimization, especially of the GPU implementation,
+    could lead to significant performance improvements.
 
     
 \end{document}

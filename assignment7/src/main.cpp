@@ -10,7 +10,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const int max_iter = 1e5;
+const int max_iter = 100;
 const int Nx = pow(10, 4);
 const int Ny = pow(10, 4);
 
@@ -59,11 +59,11 @@ int main(int argc, char* argv[]) {
     }
 
     auto stop = high_resolution_clock::now(); // End timing
-    auto duration = duration_cast<seconds>(stop - start);
+    auto duration = duration_cast<microseconds>(stop - start);
 
     //Print time
     cout << "Time taken by function: "
-         << duration.count() << " seconds" << endl;
+         << duration.count() << " microseconds" << endl;
 
     write_to_bmp(Nx, U0, max_iter, 0, 1);
 

@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1703596873 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment7/report/main.tex" "main.pdf" "main" 1703596874
+["pdflatex"] 1703862419 "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment7/report/main.tex" "main.pdf" "main" 1703862420
   "/etc/texmf/web2c/texmf.cnf" 1697280618 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment7/report/main.tex" 1703596869 7139 2e7d599297f6a63e77c97a826cdb1cb5 ""
+  "/home/hectellian/Dev/Autumn2023/13X007-parallelism/assignment7/report/main.tex" 1703862419 8858 69abc698895d8456dda0b7c979020140 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1136768653 1536 02c06700a42be0f5a28664c7273f82e7 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -215,13 +215,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697371243 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1697371258 2800007 c3765f9169c6b879828b37cf1804f5d0 ""
-  "img/execution_time.png" 1703596328 132359 9075f9a943c25863a418e204a2155c49 ""
+  "img/execution_time.png" 1703861026 92877 d92d6c68cc059bfbdb65b36cf421b880 ""
   "img/logo-unige.png" 1703590999 110559 bee65c350753666ab19a83ccc008ed56 ""
-  "main.aux" 1703596874 3827 93398b104f79957cee6b4d0c9a31def3 "pdflatex"
-  "main.out" 1703596874 2120 565fc8bbec2b85e9f297d9b535a23159 "pdflatex"
-  "main.tex" 1703596869 7139 2e7d599297f6a63e77c97a826cdb1cb5 ""
-  "main.toc" 1703596874 1183 cf30690ea6bbf56c2909983174ef7f1d "pdflatex"
-  "structure.tex" 1703596776 2779 9d1b813b5c026c726aca3b80ed8c54a3 ""
+  "main.aux" 1703862420 4258 398186294d2bf09143cb57ae75f10e6f "pdflatex"
+  "main.out" 1703862420 2587 a5b178ed50866399bc04be782459f9de "pdflatex"
+  "main.tex" 1703862419 8858 69abc698895d8456dda0b7c979020140 ""
+  "main.toc" 1703862420 1366 08398a2a3822fe3dc5aaf4202c978937 "pdflatex"
+  "structure.tex" 1703862218 2488 b7bd15cefbda1a171aaf40649b6c3f98 ""
   (generated)
   "main.aux"
   "main.log"
